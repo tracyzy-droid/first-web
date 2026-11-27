@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 宁波欧斯特变压器电感</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 全局基础样式 */
+        body {
+            font-family: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ====== 顶部导航栏【和首页完全一致】 ====== */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 24px;
+            color: #009467 !important;
+            letter-spacing: 0.5px;
+        }
+        .nav-link {
+            color: #333;
+            font-size: 15px;
+            margin: 0 10px;
+            padding-bottom: 5px !important;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #009467 !important;
+            border-bottom: 2px solid #009467;
+        }
+        .lang-switch {
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lang-switch a {
+            color: #009467;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        .lang-switch a:hover {
+            text-decoration: underline;
+            background-color: #f0f8f4;
+        }
+        .lang-switch a.inactive {
+            color: #666;
+            font-weight: normal;
+        }
+        .lang-switch a.inactive:hover {
+            color: #008050;
+        }
+
+        /* ====== 内页顶部小 Banner ====== */
+        .page-header {
+            background-color: #f4f6f8;
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .page-header h1 {
+            font-size: 32px;
+            color: #008050;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            color: #888;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* ====== 内容通用标题 ====== */
+        .content-title {
+            font-size: 24px;
+            color: #008050;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .content-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background-color: #008050;
+            margin-right: 15px;
+        }
+
+        /* ====== 核心数据 (数字跳动) ====== */
+        .stats-wrapper {
+            background-color: #ffffff;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+        }
+        /* 桌面端竖线分隔 */
+        @media (min-width: 768px) {
+            .stat-item::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 20%;
+                height: 60%;
+                width: 1px;
+                background-color: #eaeaea;
+            }
+            /* 移除最后一个的竖线 */
+            .col-md-3:last-child .stat-item::after,
+            .col-6:nth-child(even) .stat-item::after {
+                display: none;
+            }
+        }
+        @media (min-width: 992px) {
+            /* 桌面端一行6个时，移除第6个的竖线 */
+            .col-lg-2:last-child .stat-item::after {
+                display: none;
+            }
+            /* 恢复偶数项的竖线（因为桌面端6个） */
+            .col-lg-2:nth-child(even) .stat-item::after {
+                display: block;
+            }
+        }
+
+        /* ====== 数字颜色适配为主题绿 ====== */
+        .stat-item h2 {
+            color: #009467; /* 主题绿 */
+            font-size: 46px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .stat-item .unit {
+            font-size: 16px;
+            font-weight: 700;
+            margin-left: 3px;
+            color: #009467; /* 单位也变绿 */
+        }
+        .stat-item p {
+            color: #666; /* 文字稍微调深一点，增加对比度 */
+            margin: 0;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* ====== 优势列表样式 ====== */
+        .advantage-list {
+            list-style: none;
+            padding: 0;
+        }
+        .advantage-list li {
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .advantage-list li strong {
+            color: #333;
+        }
+
+        /* ====== 结构化信息表 ====== */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .info-table th, .info-table td {
+            padding: 15px;
+            border: 1px solid #eaeaea;
+            font-size: 15px;
+        }
+        .info-table th {
+            background-color: #f8f9fa;
+            color: #333;
+            width: 25%;
+            font-weight: 600;
+        }
+        .info-table td {
+            color: #555;
+        }
+
+        /* ====== 页脚【和首页统一】 ====== */
+        footer {
+            background-color: #2c3e50;
+            color: #a0aab2;
+            padding: 60px 0 20px;
+            margin-top: 80px;
+        }
+        footer h5 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        footer h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #008050;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer li {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        footer li a {
+            color: #a0aab2;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        footer li a:hover {
+            color: #fff;
+        }
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .footer-contact-item i {
+            color: #e74c3c;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部导航【和首页完全一致，去掉写死active】 -->
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">OSTCORE</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav.home">首页</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html" data-i18n="nav.about">关于我们</a></li>
+                <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav.product">产品中心</a></li>
+                <li class="nav-item"><a class="nav-link" href="equipment.html" data-i18n="nav.equipment">设备展示</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html" data-i18n="nav.contact">联系我们</a></li>
+            </ul>
+            <div class="lang-switch mt-2 mt-lg-0">
+                <a id="langZh" class="active" onclick="switchLanguage('zh')">简体中文</a>
+                <span>/</span>
+                <a id="langEn" class="inactive" onclick="switchLanguage('en')">English</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- 顶部小 Banner -->
+<div class="page-header">
+    <h1 data-i18n="page.title">关于我们</h1>
+</div>
+
+<!-- 公司简介与图片 -->
+<section class="container py-5 mt-4">
+    <div class="row align-items-center">
+        <div class="col-lg-7 mb-4 mb-lg-0 pe-lg-5">
+            <div class="content-title" data-i18n="about.title">公司简介</div>
+            <p style="line-height: 2; color: #555; text-align: justify; text-indent: 2em;" data-i18n="about.desc1">
+                宁波欧斯特电子有限公司是一家专业从事软磁铁氧体磁芯及器件研发、制造与销售的科技型企业。依托长三角地区完善的电子产业链，我们致力于为全球电气和电子行业提供高品质的磁性元器件及定制化解决方案。
+            </p>
+            <p style="line-height: 2; color: #555; text-align: justify; text-indent: 2em;" data-i18n="about.desc2">
+                公司主营产品涵盖共模电感、贴片电感、环形电感及高频变压器等电子元器件。产品广泛应用于新能源汽车、光伏储能、智能家电、工业电源及通信设备等前沿领域。
+            </p>
+            <p style="line-height: 2; color: #555; text-align: justify; text-indent: 2em;" data-i18n="about.desc3">
+                凭借深厚的技术积累、精密的模具开发能力和严格的质量控制体系，我们能够快速响应客户的定制化需求，提供从设计打样到规模化生产的一站式服务，产品远销海内外，深受客户好评。
+            </p>
+        </div>
+        <div class="col-lg-5 text-center">
+            <!-- 替换为你的厂房/公司图片 -->
+            <img src="image/factory_equipment/factory.jpg" alt="欧斯特电子厂房" class="img-fluid rounded shadow" style="width: 100%; height: auto;">
+        </div>
+    </div>
+</section>
+
+<!-- 核心数据 (数字跳动) -->
+<section class="container stats-wrapper" id="statsSection">
+    <div class="row">
+        <!-- 数据 1 -->
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="stat-item">
+                <h2><span class="counter-value" data-target="23">0</span><span class="unit" data-i18n="stats.unit.years">年</span></h2>
+                <p data-i18n="stats.desc1">电子材料行业经验</p>
+            </div>
+        </div>
+        <!-- 数据 2 -->
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="stat-item">
+                <h2><span class="counter-value" data-target="3700">0</span><span class="unit" data-i18n="stats.unit.sqm">㎡</span></h2>
+                <p data-i18n="stats.desc2">公司占地面积</p>
+            </div>
+        </div>
+        <!-- 数据 3 -->
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="stat-item">
+                <h2><span class="counter-value" data-target="45">0</span><span class="unit" data-i18n="stats.unit.people">+人</span></h2>
+                <p data-i18n="stats.desc3">专业的技术团队</p>
+            </div>
+        </div>
+        <!-- 数据 4 -->
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="stat-item">
+                <h2><span class="counter-value" data-target="55">0</span><span class="unit" data-i18n="stats.unit.machines">+台</span></h2>
+                <p data-i18n="stats.desc4">专业的生产设备</p>
+            </div>
+        </div>
+        <!-- 数据 5 -->
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="stat-item">
+                <h2><span class="counter-value" data-target="500">0</span><span class="unit" data-i18n="stats.unit.models">+个</span></h2>
+                <p data-i18n="stats.desc5">产品型号供选择</p>
+            </div>
+        </div>
+        <!-- 数据 6 (复合数字暂不参与跳动) -->
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="stat-item">
+                <h2><span style="font-size: 36px;">7-8</span><span class="unit" data-i18n="stats.unit.days">天</span></h2>
+                <p data-i18n="stats.desc6">量产模具交期</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 核心优势与详细资料 -->
+<section class="container py-4 mb-5 bg-light rounded">
+    <div class="row p-4">
+        <!-- 左侧：核心优势 -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="content-title" data-i18n="advantage.title">核心优势</div>
+            <ul class="advantage-list">
+                <li><strong data-i18n="advantage.item1.strong">独立研发能力：</strong><span data-i18n="advantage.item1.text">拥有独立的研发团队，配备先进测试仪器，具备充足能力配合客户进行前期产品设计开发与打样。</span></li>
+                <li><strong data-i18n="advantage.item2.strong">全产业链布局：</strong><span data-i18n="advantage.item2.text">从磁芯选型、线圈绕制到成品组装、测试，实现生产制造一体化，严格控制成本与品质。</span></li>
+                <li><strong data-i18n="advantage.item3.strong">快速响应交付：</strong><span data-i18n="advantage.item3.text">完善的生产排程系统，常规样品3-7天出货，大批量订单交期准时，满足客户紧急需求。</span></li>
+                <li><strong data-i18n="advantage.item4.strong">严格品质管控：</strong><span data-i18n="advantage.item4.text">严格依照ISO9001体系运作，从进料检验到成品出货层层把关，确保每一颗元器件符合环保与性能标准。</span></li>
+            </ul>
+        </div>
+
+        <!-- 右侧：基本信息表 -->
+        <div class="col-lg-6">
+            <div class="content-title" data-i18n="profile.title">企业档案</div>
+            <table class="info-table">
+                <tr>
+                    <th data-i18n="profile.company.label">公司全称</th>
+                    <td data-i18n="profile.company.value">宁波欧斯特电子有限公司</td>
+                </tr>
+                <tr>
+                    <th data-i18n="profile.products.label">主营产品</th>
+                    <td data-i18n="profile.products.value">共模电感 / 磁芯 / 贴片电感 / 高频变压器</td>
+                </tr>
+                <tr>
+                    <th data-i18n="profile.field.label">应用领域</th>
+                    <td data-i18n="profile.field.value">新能源 / 汽车电子 / 电源适配 / 工业控制</td>
+                </tr>
+                <tr>
+                    <th data-i18n="profile.quality.label">质量体系</th>
+                    <td data-i18n="profile.quality.value">ISO9001 质量管理体系认证</td>
+                </tr>
+                <tr>
+                    <th data-i18n="profile.philosophy.label">企业理念</th>
+                    <td data-i18n="profile.philosophy.value">精益求精，铸造品牌；用心为客户做好每一个产品。</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                <h5 data-i18n="footer.contact">联系我们</h5>
+                <div class="footer-contact-item">
+                    <i>📞</i>
+                    <span data-i18n="footer.phone">电话：13906687359 / 13957885837 / 13586569986</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i>✉️</i>
+                    <span data-i18n="footer.email">zzujun@163.com / sales01@commonde.com</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i>📍</i>
+                    <span data-i18n="footer.address">地址：浙江省宁波市鄞州区姜山镇联东U谷21号楼</span>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5 data-i18n="footer.quickNav">快速导航</h5>
+                <ul>
+                    <li><a href="index.html" data-i18n="footer.nav.home">首页</a></li>
+                    <li><a href="about.html" data-i18n="footer.nav.about">关于我们</a></li>
+                    <li><a href="product.html" data-i18n="footer.nav.product">产品中心</a></li>
+                    <li><a href="equipment.html" data-i18n="footer.nav.equipment">设备展示</a></li>
+                    <li><a href="contact.html" data-i18n="footer.nav.contact">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5 data-i18n="footer.products">产品展示</h5>
+                <ul>
+                    <li><a href="#" data-i18n="footer.prod1">共模电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod2">贴片电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod3">铁粉芯电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod4">环形电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod5">滤波电感/储能电感/PFC电感(合金磁粉芯)</a></li>
+                    <li><a href="#" data-i18n="footer.prod6">电源变压器PFC电感/BUCK电感</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span data-i18n="footer.copyright">版权所有 © 2026 宁波欧斯特电子有限公司 | 电话：13906687359 / 13957885837 / 13586569986 | 浙ICP备2026014142号-1</span>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ====== 国际化文案配置 ====== -->
+<script>
+    const i18n = {
+        zh: {
+            'nav.home': '首页',
+            'nav.about': '关于我们',
+            'nav.product': '产品中心',
+            'nav.equipment': '设备展示',
+            'nav.contact': '联系我们',
+            'page.title': '关于我们',
+            'about.title': '公司简介',
+            'about.desc1': '宁波欧斯特电子有限公司是一家专业从事软磁铁氧体磁芯及器件研发、制造与销售的科技型企业。依托长三角地区完善的电子产业链，我们致力于为全球电气和电子行业提供高品质的磁性元器件及定制化解决方案。',
+            'about.desc2': '公司主营产品涵盖共模电感、贴片电感、环形电感及高频变压器等电子元器件。产品广泛应用于新能源汽车、光伏储能、智能家电、工业电源及通信设备等前沿领域。',
+            'about.desc3': '凭借深厚的技术积累、精密的模具开发能力和严格的质量控制体系，我们能够快速响应客户的定制化需求，提供从设计打样到规模化生产的一站式服务，产品远销海内外，深受客户好评。',
+            'stats.unit.years': '年',
+            'stats.unit.sqm': '㎡',
+            'stats.unit.people': '+人',
+            'stats.unit.machines': '+台',
+            'stats.unit.models': '+个',
+            'stats.unit.days': '天',
+            'stats.desc1': '电子材料行业经验',
+            'stats.desc2': '公司占地面积',
+            'stats.desc3': '专业的技术团队',
+            'stats.desc4': '专业的生产设备',
+            'stats.desc5': '产品型号供选择',
+            'stats.desc6': '量产模具交期',
+            'advantage.title': '核心优势',
+            'advantage.item1.strong': '独立研发能力：',
+            'advantage.item1.text': '拥有独立的研发团队，配备先进测试仪器，具备充足能力配合客户进行前期产品设计开发与打样。',
+            'advantage.item2.strong': '全产业链布局：',
+            'advantage.item2.text': '从磁芯选型、线圈绕制到成品组装、测试，实现生产制造一体化，严格控制成本与品质。',
+            'advantage.item3.strong': '快速响应交付：',
+            'advantage.item3.text': '完善的生产排程系统，常规样品3-7天出货，大批量订单交期准时，满足客户紧急需求。',
+            'advantage.item4.strong': '严格品质管控：',
+            'advantage.item4.text': '严格依照ISO9001体系运作，从进料检验到成品出货层层把关，确保每一颗元器件符合环保与性能标准。',
+            'profile.title': '企业档案',
+            'profile.company.label': '公司全称',
+            'profile.company.value': '宁波欧斯特电子有限公司',
+            'profile.products.label': '主营产品',
+            'profile.products.value': '共模电感 / 磁芯 / 贴片电感 / 高频变压器',
+            'profile.field.label': '应用领域',
+            'profile.field.value': '新能源 / 汽车电子 / 电源适配 / 工业控制',
+            'profile.quality.label': '质量体系',
+            'profile.quality.value': 'ISO9001 质量管理体系认证',
+            'profile.philosophy.label': '企业理念',
+            'profile.philosophy.value': '精益求精，铸造品牌；用心为客户做好每一个产品。',
+            'footer.contact': '联系我们',
+            'footer.phone': '电话：13906687359 / 13957885837 / 13586569986',
+            'footer.email': 'zzujun@163.com / sales01@commonde.com',
+            'footer.address': '地址：浙江省宁波市鄞州区姜山镇联东U谷21号楼',
+            'footer.quickNav': '快速导航',
+            'footer.nav.home': '首页',
+            'footer.nav.about': '关于我们',
+            'footer.nav.product': '产品中心',
+            'footer.nav.equipment': '设备展示',
+            'footer.nav.contact': '联系我们',
+            'footer.products': '产品展示',
+            'footer.prod1': '共模电感',
+            'footer.prod2': '贴片电感',
+            'footer.prod3': '铁粉芯电感',
+            'footer.prod4': '环形电感',
+            'footer.prod5': '滤波电感/储能电感/PFC电感(合金磁粉芯)',
+            'footer.prod6': '电源变压器PFC电感/BUCK电感',
+            'footer.copyright': '版权所有 © 2026 宁波欧斯特电子有限公司 | 电话：13906687359 / 13957885837 / 13586569986 | 浙ICP备2026014142号-1'
+        },
+        en: {
+            'nav.home': 'Home',
+            'nav.about': 'About Us',
+            'nav.product': 'Products',
+            'nav.equipment': 'Equipment',
+            'nav.contact': 'Contact Us',
+            'page.title': 'About Us',
+            'about.title': 'Company Profile',
+            'about.desc1': 'Ningbo OSTCORE Electronics Co., Ltd. is a technology-oriented enterprise specializing in the R&D, manufacturing, and sales of soft ferrite cores and components. Leveraging the complete electronics industry chain in the Yangtze River Delta, we are committed to providing high-quality magnetic components and customized solutions for the global electrical and electronics industry.',
+            'about.desc2': 'Our main products include common mode inductors, SMD inductors, toroidal inductors, and high-frequency transformers. These products are widely used in new energy vehicles, photovoltaic energy storage, smart home appliances, industrial power supplies, communication equipment, and other cutting-edge fields.',
+            'about.desc3': 'With deep technical accumulation, precise mold development capabilities, and a strict quality control system, we can quickly respond to customized customer needs and provide one-stop services from design and prototyping to large-scale production. Our products are exported worldwide and well received by customers.',
+            'stats.unit.years': 'yrs',
+            'stats.unit.sqm': '㎡',
+            'stats.unit.people': '+',
+            'stats.unit.machines': '+',
+            'stats.unit.models': '+',
+            'stats.unit.days': 'days',
+            'stats.desc1': 'Years of Industry Experience',
+            'stats.desc2': 'Company Area',
+            'stats.desc3': 'Professional Technical Team',
+            'stats.desc4': 'Production Equipment',
+            'stats.desc5': 'Product Models',
+            'stats.desc6': 'Tooling Lead Time',
+            'advantage.title': 'Core Advantages',
+            'advantage.item1.strong': 'Independent R&D Capability: ',
+            'advantage.item1.text': 'We have an independent R&D team equipped with advanced testing instruments, fully capable of supporting customers in early-stage product design, development, and prototyping.',
+            'advantage.item2.strong': 'Full Industry Chain Layout: ',
+            'advantage.item2.text': 'From core selection and coil winding to finished product assembly and testing, we achieve integrated manufacturing, strictly controlling cost and quality.',
+            'advantage.item3.strong': 'Fast Response & Delivery: ',
+            'advantage.item3.text': 'With a well-established production scheduling system, regular samples ship in 3-7 days, and bulk orders are delivered on time to meet urgent customer needs.',
+            'advantage.item4.strong': 'Strict Quality Control: ',
+            'advantage.item4.text': 'Operating strictly under the ISO9001 system, we control every step from incoming inspection to finished product shipment, ensuring every component meets environmental and performance standards.',
+            'profile.title': 'Company Profile',
+            'profile.company.label': 'Company Name',
+            'profile.company.value': 'Ningbo OSTCORE Electronics Co., Ltd.',
+            'profile.products.label': 'Main Products',
+            'profile.products.value': 'Common Mode Inductors / Cores / SMD Inductors / High-Frequency Transformers',
+            'profile.field.label': 'Application Fields',
+            'profile.field.value': 'New Energy / Automotive Electronics / Power Adapters / Industrial Control',
+            'profile.quality.label': 'Quality System',
+            'profile.quality.value': 'ISO9001 Quality Management System Certification',
+            'profile.philosophy.label': 'Philosophy',
+            'profile.philosophy.value': 'Strive for perfection, build the brand; make every product with heart for our customers.',
+            'footer.contact': 'Contact Us',
+            'footer.phone': 'Tel: 13906687359 / 13957885837 / 13586569986',
+            'footer.email': 'zzujun@163.com / sales01@commonde.com',
+            'footer.address': 'Address: Building 21, Liandong U Valley, Jiangshan Town, Yinzhou District, Ningbo, Zhejiang, China',
+            'footer.quickNav': 'Quick Links',
+            'footer.nav.home': 'Home',
+            'footer.nav.about': 'About Us',
+            'footer.nav.product': 'Products',
+            'footer.nav.equipment': 'Equipment',
+            'footer.nav.contact': 'Contact Us',
+            'footer.products': 'Products',
+            'footer.prod1': 'Common Mode Inductors',
+            'footer.prod2': 'SMD Inductors',
+            'footer.prod3': 'Iron Powder Core Inductors',
+            'footer.prod4': 'Toroidal Inductors',
+            'footer.prod5': 'Filter Inductors / Energy Storage Inductors / PFC Inductors (Alloy Powder Core)',
+            'footer.prod6': 'Power Transformer PFC Inductors / BUCK Inductors',
+            'footer.copyright': 'Copyright © 2026 Ningbo OSTCORE Electronics Co., Ltd. | Tel: 13906687359 / 13957885837 / 13586569986 | Zhejiang ICP No. 2026014142-1'
+        }
+    };
+
+    // ===== 语言切换函数 =====
+    function switchLanguage(lang) {
+        // 更新页面标题
+        document.title = lang === 'en' ? 'About Us - Ningbo OSTCORE Transformer & Inductor' : '关于我们 - 宁波欧斯特变压器电感';
+
+        // 更新所有带 data-i18n 属性的元素
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[lang] && i18n[lang][key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = i18n[lang][key];
+                } else {
+                    el.textContent = i18n[lang][key];
+                }
+            }
+        });
+
+        // 更新导航栏激活状态（根据当前页面）
+        const links = document.querySelectorAll('.nav-link');
+        const currentHref = window.location.href;
+        links.forEach(link => {
+            if (currentHref.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#') {
+                links.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+
+        // 更新语言切换按钮样式
+        const langZh = document.getElementById('langZh');
+        const langEn = document.getElementById('langEn');
+        if (lang === 'zh') {
+            langZh.classList.add('active');
+            langZh.classList.remove('inactive');
+            langEn.classList.remove('active');
+            langEn.classList.add('inactive');
+            document.documentElement.lang = 'zh-CN';
+        } else {
+            langEn.classList.add('active');
+            langEn.classList.remove('inactive');
+            langZh.classList.remove('active');
+            langZh.classList.add('inactive');
+            document.documentElement.lang = 'en';
+        }
+
+        // 存储语言偏好
+        try {
+            localStorage.setItem('preferredLang', lang);
+        } catch(e) {}
+    }
+
+    // ===== 页面加载时初始化 =====
+    document.addEventListener('DOMContentLoaded', function() {
+        // 读取语言偏好
+        let savedLang = 'zh';
+        try {
+            savedLang = localStorage.getItem('preferredLang') || 'zh';
+        } catch(e) {}
+
+        if (savedLang === 'en') {
+            switchLanguage('en');
+        } else {
+            switchLanguage('zh');
+        }
+
+        // 导航自动高亮（原有逻辑）
+        const links = document.querySelectorAll('.nav-link');
+        const currentHref = window.location.href;
+        links.forEach(link => {
+            if (currentHref.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#') {
+                links.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
+<!-- ====== 数字跳动 JS 脚本 ====== -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll('.counter-value');
+        const animationDuration = 2000; // 动画持续时间，单位毫秒
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const startTime = performance.now();
+
+            const updateCount = (currentTime) => {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / animationDuration, 1);
+                const easeOutProgress = 1 - (1 - progress) * (1 - progress);
+
+                const currentValue = Math.floor(target * easeOutProgress);
+                counter.innerText = currentValue;
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            requestAnimationFrame(updateCount);
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+    });
+</script>
+
+</body>
+</html>

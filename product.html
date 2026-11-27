@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品中心 - 宁波欧斯特变压器电感</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 全局基础样式 */
+        body {
+            font-family: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ====== 顶部导航栏 ====== */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 24px;
+            color: #009467 !important;
+            letter-spacing: 0.5px;
+        }
+        .nav-link {
+            color: #333;
+            font-size: 15px;
+            margin: 0 10px;
+            padding-bottom: 5px !important;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .nav-link:hover,
+        .nav-link.active {
+            color: #009467 !important;
+            border-bottom: 2px solid #009467;
+        }
+        .lang-switch {
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lang-switch a {
+            color: #009467;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        .lang-switch a:hover {
+            text-decoration: underline;
+            background-color: #f0f8f4;
+        }
+        .lang-switch a.inactive {
+            color: #666;
+            font-weight: normal;
+        }
+        .lang-switch a.inactive:hover {
+            color: #008050;
+        }
+
+        /* ====== 产品中心主体 ====== */
+        .product-center-wrap {
+            padding: 50px 0 60px;
+        }
+
+        .main-title {
+            color:#008050;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 24px;
+            font-weight: bold;
+        }
+
+        /* 一级导航 */
+        .level1-nav {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .level1-item {
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .level1-item:hover {
+            color: #008050;
+        }
+        .level1-item.active {
+            color: #008050;
+            font-weight: bold;
+        }
+
+        /* 搜索框 */
+        .search-box {
+            width: 400px;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 8px 36px 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+        .search-box input:focus {
+            border-color: #008050;
+        }
+        .search-box .icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            cursor: pointer;
+        }
+
+        /* 二级分类标签网格 */
+        .level2-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 14px;
+            padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .level2-item {
+            background: #f5f5f5;
+            text-align: center;
+            padding: 12px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.25s;
+            font-size: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+        }
+        .level2-item:hover {
+            background: #e8f2ff;
+        }
+        .level2-item.active {
+            background: #008050;
+            color: #fff;
+        }
+
+        /* 产品卡片区域 */
+        .product-list {
+            margin-top: 40px;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            transition: 0.3s;
+            height: 100%;
+            background: #fff;
+        }
+        .product-card:hover {
+            border-color: #008050;
+            box-shadow: 0 4px 12px rgba(0, 128, 80, 0.1);
+        }
+        .prod-img-wrap {
+            height: 220px;
+            background: #f7f8f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        .prod-img-wrap img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .prod-info {
+            padding: 14px;
+            text-align: center;
+        }
+        .prod-name {
+            font-size: 15px;
+            color: #222;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .prod-param {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* 分页 */
+        .pagination-wrap {
+            margin-top: 40px;
+        }
+        .page-link {
+            color: #008050;
+            cursor: pointer;
+        }
+        .page-item.active .page-link {
+            background-color: #008050;
+            border-color: #008050;
+        }
+        .page-item.disabled .page-link {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* ====== 页脚 ====== */
+        footer {
+            background-color: #2c3e50;
+            color: #a0aab2;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+        footer h5 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        footer h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #008050;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer li {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        footer li a {
+            color: #a0aab2;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        footer li a:hover {
+            color: #fff;
+        }
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .footer-contact-item i {
+            color: #e74c3c;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 767px) {
+            .main-title {
+                font-size: 32px;
+            }
+            .level1-nav {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .level1-item {
+                font-size: 16px;
+            }
+            .search-box {
+                width: 90%;
+            }
+            .level2-grid {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">OSTCORE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="nav.home">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html" data-i18n="nav.about">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="product.html" data-i18n="nav.product">产品中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="equipment.html" data-i18n="nav.equipment">设备展示</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html" data-i18n="nav.contact">联系我们</a></li>
+                </ul>
+                <div class="lang-switch mt-2 mt-lg-0">
+                    <a id="langZh" class="active" onclick="switchLanguage('zh')">简体中文</a>
+                    <span>/</span>
+                    <a id="langEn" class="inactive" onclick="switchLanguage('en')">English</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 产品中心主体 -->
+    <section class="product-center-wrap container">
+        <h1 class="main-title" data-i18n="page.title">产品中心</h1>
+
+        <!-- 一级导航 -->
+        <div class="level1-nav">
+            <div class="level1-item active" data-level1="common" data-i18n="level1.common">共模电感</div>
+            <div class="level1-item" data-level1="choke" data-i18n="level1.choke">工字电感</div>
+            <div class="level1-item" data-level1="transformer" data-i18n="level1.transformer">高频变压器</div>
+            <div class="level1-item" data-level1="inductor" data-i18n="level1.inductor">电感</div>
+            <div class="level1-item" data-level1="core" data-i18n="level1.core">磁芯</div>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="请输入产品名称或型号">
+            <span class="icon">🔍</span>
+        </div>
+
+        <!-- 二级分类标签网格 -->
+        <div class="level2-grid" id="level2Grid">
+            <!-- 动态生成 -->
+        </div>
+
+        <!-- 产品列表 -->
+        <div class="row g-4 product-list" id="productList">
+            <!-- 共模电感 - SQ -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1008（立）.JPG" alt="SQ1008"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1008.name">SQ1008 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1008.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1111（立）.JPG" alt="SQ1111"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1111V.name">SQ1111 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1111V.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1111（卧）.JPG" alt="SQ1111"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1111H.name">SQ1111 卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1111H.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1115（立）.JPG" alt="SQ1115"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1115.name">SQ1115 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1115.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1212.png" alt="SQ1212"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1212.name">SQ1212卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1212.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1314 Vertical.png" alt="SQ1314"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1314.name">SQ1314 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1314.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1318.png" alt="SQ1318"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1318.name">SQ1318 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1318.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1322 Horizontal.png" alt="SQ1322"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1322.name">SQ1322 卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1322.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1522.png" alt="SQ1522"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1522.name">SQ1522 卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1522.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1624.png" alt="SQ1624"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1624V.name">SQ1624立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1624V.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1624 Horizontal.png" alt="SQ1624"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1624H.name">SQ1624 卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1624H.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1619立式.png" alt="SQ1619"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1619V.name">SQ1619立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1619V.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1616.png" alt="SQ1616"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1616.name">SQ1616立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1616.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ,DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1619.png" alt="SQ1619"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1619H.name">SQ1619卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1619H.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ2628（立）.JPG" alt="SQ2628"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ2628.name">SQ2628 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ2628.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1820 Vertical.png" alt="SQ1820"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1820.name">SQ1820立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1820.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1824.png" alt="SQ1824"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1824.name">SQ1824立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1824.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1829.png" alt="SQ1829"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1829H.name">SQ1829卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1829H.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1829（立）.JPG" alt="SQ1829"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1829V.name">SQ1829 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1829V.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1914.png" alt="SQ1914"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1914.name">SQ1914卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1914.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ2023.png" alt="SQ2023"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ2023H.name">SQ2023卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ2023H.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ2023（立）.JPG" alt="SQ2023"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ2023V.name">SQ2023 立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ2023V.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ2631 Horizontal.png" alt="SQ2631"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ2631H.name">SQ2631卧式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ2631H.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ2631 Vertical.png" alt="SQ2631"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ2631V.name">SQ2631立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ2631V.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="SQ,DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/SQ/SQ1212(⽴式扁线共模).png" alt="SQ1212"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.SQ1212V.name">SQ1212立式扁平线共模</div>
+                        <div class="prod-param" data-i18n="prod.SQ1212V.desc">SQ扁平线共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <!-- EE多线槽 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EE8.3 卧式二槽.png" alt="EE8.3"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EE8_3_2.name">EE8.3 (卧式二槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EE8_3_2.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EE8.3 卧式四槽.png" alt="EE8.3"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EE8_3_4.name">EE8.3 (卧式四槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EE8_3_4.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EF1313(⽴式四槽共模).png" alt="EF1313"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EF1313.name">EF1313(立式四槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EF1313.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EF1013.png" alt="EF1013"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EF1013.name">EF1013(立式四槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EF1013.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EF1618 Vertical.png" alt="EF1618"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EF1618.name">EF1618(立式四槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EF1618.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EF20 Vertical.png" alt="EF20"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EF20.name">EF20(立式四槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EF20.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EFD1315 Horizontal.png" alt="EFD1315"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EFD1315.name">EFD1315(卧式四槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EFD1315.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EFD1520 Horizontal.png" alt="EFD1520"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EFD1520.name">EFD1520(卧式四槽共模)</div>
+                        <div class="prod-param" data-i18n="prod.EFD1520.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/EP10.JPG" alt="EP10"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EP10.name">EP10</div>
+                        <div class="prod-param" data-i18n="prod.EP10.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="CASE">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/多线槽EE/UF9.8.JPG" alt="UF9.8"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.UF9_8.name">UF9.8</div>
+                        <div class="prod-param" data-i18n="prod.UF9_8.desc">多线槽EE/EF/EFD型共模</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 方形共模 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F8X10X3.JPG" alt="F8X10X3"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F8X10X3.name">F8X10X3 立式共模</div>
+                        <div class="prod-param" data-i18n="prod.F8X10X3.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F8X10X5.JPG" alt="F8X10X5"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F8X10X5.name">F8X10X5卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F8X10X5.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F8X10X7.JPG" alt="F8X10X7"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F8X10X7.name">F8X10X7卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F8X10X7.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F13X14X7.JPG" alt="F13X14X7"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F13X14X7.name">F13X14X7 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F13X14X7.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1214(立).JPG" alt="F1214"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1214.name">F1214 立式共模</div>
+                        <div class="prod-param" data-i18n="prod.F1214.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1314 Horizontal.png" alt="F1314"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1314.name">F1314 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F1314.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F2023.png" alt="F2023"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F2023.name">F2023 卧式共模(圆线)</div>
+                        <div class="prod-param" data-i18n="prod.F2023.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1418卧式圆线.png" alt="F1418"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1418H.name">F1418 卧式共模(圆线)</div>
+                        <div class="prod-param" data-i18n="prod.F1418H.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1418(立).JPG" alt="F1418"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1418V.name">F1418 立式共模</div>
+                        <div class="prod-param" data-i18n="prod.F1418V.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1515(立).JPG" alt="F1515"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1515.name">F1515 立式共模</div>
+                        <div class="prod-param" data-i18n="prod.F1515.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1614.JPG" alt="F1614"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1614.name">F1614卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F1614.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1720.JPG" alt="F1720"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1720.name">F1720 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F1720.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F1724.JPG" alt="F1724"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F1724.name">F1724 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F1724.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F2022.JPG" alt="F2022"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F2022.name">F2022 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F2022.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F2124.JPG" alt="F2124"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F2124.name">F2124 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F2124.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F2225.JPG" alt="F2225"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F2225.name">F2225 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F2225.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F3028.JPG" alt="F3028"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F3028.name">F3028 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F3028.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="DS">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/方形/F8x10.png" alt="F8x10"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.F8x10.name">F8x10 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.F8x10.desc">方形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 环形共模 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T6X3X3.JPG" alt="T6X3X3"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T6X3X3.name">T6X3X3 立式共模</div>
+                        <div class="prod-param" data-i18n="prod.T6X3X3.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T9X5X3.JPG" alt="T9X5X3"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T9X5X3.name">T9X5X3 立式共模</div>
+                        <div class="prod-param" data-i18n="prod.T9X5X3.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC,SMD">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T9X5X4(SMD).JPG" alt="T9X5X4"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T9X5X4SMD.name">T9X5X4 贴片共模</div>
+                        <div class="prod-param" data-i18n="prod.T9X5X4SMD.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T12.7X7.8X6(卧式).png" alt="T12.7X7.8X6"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T12_7H.name">T12.7X7.8X6 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.T12_7H.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC,ATQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T12.7X7.8X6（贴片）.png" alt="T12.7X7.8X6"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T12_7SMD.name">T12.7X7.8X6 贴片共模</div>
+                        <div class="prod-param" data-i18n="prod.T12_7SMD.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T9X5X4.png" alt="T9X5X4"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T9X5X4.name">T9X5X4 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.T9X5X4.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC,ATQ">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T9X5X6.png" alt="T9X5X6"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T9X5X6.name">T9X5X6 贴片共模</div>
+                        <div class="prod-param" data-i18n="prod.T9X5X6.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T9X5X5.png" alt="T9X5X5"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T9X5X5.name">T9X5X5 卧式共模</div>
+                        <div class="prod-param" data-i18n="prod.T9X5X5.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T12.7X7,8X6.png" alt="T12.7X7.8X6"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T12_7V.name">T12.7X7.8X6 立式共模</div>
+                        <div class="prod-param" data-i18n="prod.T12_7V.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="EC">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/环形/T18X10X8.JPG" alt="T18X10X8"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.T18X10X8.name">T18X10X8 环形共模</div>
+                        <div class="prod-param" data-i18n="prod.T18X10X8.desc">环形共模（锰锌/镍锌磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 工字电感 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="mn_zn" data-level1="choke">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/工字型电感/工字型电感 锰锌.png" alt="工字型电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.chokeMnZn.name">工字型电感</div>
+                        <div class="prod-param" data-i18n="prod.chokeMnZn.desc">工字型电感（锰锌铁氧体磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="ni_zn_plug" data-level1="choke">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/工字型电感/工字型电感 镍锌.png" alt="工字型电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.chokeNiZnPlug.name">工字型电感</div>
+                        <div class="prod-param" data-i18n="prod.chokeNiZnPlug.desc">工字型电感（镍锌铁氧体磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="ni_zn_tape" data-level1="choke">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/工字型电感/带编工字型电感.png" alt="带编工字型电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.chokeNiZnTape.name">带编工字型电感</div>
+                        <div class="prod-param" data-i18n="prod.chokeNiZnTape.desc">工字型电感（镍锌铁氧体磁芯）</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 变压器（部分示例） -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="flat,edr" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/嵌入式扁平变压器/ED2137.JPG" alt="ED2137"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ED2137.name">ED2137</div>
+                        <div class="prod-param" data-i18n="prod.ED2137.desc">嵌入式超薄扁平变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="flat,edr" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/嵌入式扁平变压器/ED27.JPG" alt="ED27"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ED27.name">ED27</div>
+                        <div class="prod-param" data-i18n="prod.ED27.desc">嵌入式超薄扁平变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="flat,edr" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/嵌入式扁平变压器/EDR4112.JPG" alt="EDR4112"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EDR4112.name">EDR4112</div>
+                        <div class="prod-param" data-i18n="prod.EDR4112.desc">嵌入式超薄扁平变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="flat,er_ec" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/嵌入式扁平变压器/ER25.JPG" alt="ER25"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ER25.name">ER25</div>
+                        <div class="prod-param" data-i18n="prod.ER25.desc">嵌入式超薄扁平变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="flat,er_ec" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/嵌入式扁平变压器/ER2511.JPG" alt="ER2511"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ER2511.name">ER2511</div>
+                        <div class="prod-param" data-i18n="prod.ER2511.desc">嵌入式超薄扁平变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="flat" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/嵌入式扁平变压器/ERW3214.JPG" alt="ERW3214"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ERW3214.name">ERW3214</div>
+                        <div class="prod-param" data-i18n="prod.ERW3214.desc">嵌入式超薄扁平变压器</div>
+                    </div>
+                </div>
+            </div>
+            <!-- PQ变压器 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="pq" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/PQ变压器/PQ2016.JPG" alt="PQ2016"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.PQ2016.name">PQ2016</div>
+                        <div class="prod-param" data-i18n="prod.PQ2016.desc">PQ磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="pq" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/PQ变压器/PQ2020.JPG" alt="PQ2020"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.PQ2020.name">PQ2020</div>
+                        <div class="prod-param" data-i18n="prod.PQ2020.desc">PQ磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <!-- EFD/EPC变压器 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="epc" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/EFD-EPC变压器/EFD15.JPG" alt="EFD15"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EFD15.name">EFD15</div>
+                        <div class="prod-param" data-i18n="prod.EFD15.desc">EFD磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="epc" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/EFD-EPC变压器/EPC15.JPG" alt="EPC15"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EPC15.name">EPC15</div>
+                        <div class="prod-param" data-i18n="prod.EPC15.desc">EPC磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <!-- ER/EC/EQ变压器 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="er_ec" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/ER-EC-EQ变压器/EC2010.JPG" alt="EC2010"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EC2010.name">EC2010 卧式变压器</div>
+                        <div class="prod-param" data-i18n="prod.EC2010.desc">EC磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="er_ec" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/ER-EC-EQ变压器/EQ2511.JPG" alt="EQ2511"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EQ2511.name">EQ2511 卧式变压器</div>
+                        <div class="prod-param" data-i18n="prod.EQ2511.desc">EQ磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <!-- EE变压器 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="ee" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/EE变压器/EE12.JPG" alt="EE12"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EE12.name">EE12 卧式变压器</div>
+                        <div class="prod-param" data-i18n="prod.EE12.desc">EE磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="ee" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/EE变压器/EE13.JPG" alt="EE13"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EE13.name">EE13 卧式变压器</div>
+                        <div class="prod-param" data-i18n="prod.EE13.desc">EE磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <!-- ED/EDR变压器 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="edr" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/EDEDR磁芯变压器/EDR1840.JPG" alt="EDR1840"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EDR1840.name">EDR1840</div>
+                        <div class="prod-param" data-i18n="prod.EDR1840.desc">EDR磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="edr" data-level1="transformer">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/变压器/EDEDR磁芯变压器/ED2311.JPG" alt="ED2311"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ED2311.name">ED2311</div>
+                        <div class="prod-param" data-i18n="prod.ED2311.desc">ED磁芯变压器</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 电感类 -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="gui_lv" data-level1="inductor">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/铁粉芯 铁硅 铁硅铝电感/DSC01569.JPG" alt="铁粉芯电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ironPowder.name">铁粉芯电感</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="gui_lv" data-level1="inductor">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/铁粉芯 铁硅 铁硅铝电感/DSC01587.JPG" alt="铁硅电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ironSilicon.name">铁硅电感</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="gui_lv" data-level1="inductor">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/铁粉芯 铁硅 铁硅铝电感/DSC01614.JPG" alt="铁硅铝电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ironSiliconAl.name">铁硅铝电感</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="pfc" data-level1="inductor">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/滤波电感-PFC电感/DSC00749.JPG" alt="滤波电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.filterInductor.name">滤波电感</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="pfc" data-level1="inductor">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/滤波电感-PFC电感/DSC00758.JPG" alt="PFC电感"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.pfcInductor.name">PFC电感</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 磁芯类（部分示例） -->
+            <div class="col-6 col-md-4 col-lg-3" data-tag="edr" data-level1="core">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/磁芯/EDR磁芯/ED2121.JPG" alt="ED2121"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.ED2121Core.name">ED2121</div>
+                        <div class="prod-param" data-i18n="prod.ED2121Core.desc">ED磁芯</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="ee" data-level1="core">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/磁芯/EE磁芯/EE.JPG" alt="EE系列"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EECore.name">EE系列</div>
+                        <div class="prod-param" data-i18n="prod.EECore.desc">EE磁芯</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="epc" data-level1="core">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/磁芯/EPC磁芯/EPC.JPG" alt="EPC系列"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EPCCore.name">EPC系列</div>
+                        <div class="prod-param" data-i18n="prod.EPCCore.desc">EPC磁芯</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="eq" data-level1="core">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/磁芯/EQ磁芯/EQ.JPG" alt="EQ系列"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.EQCore.name">EQ系列</div>
+                        <div class="prod-param" data-i18n="prod.EQCore.desc">EQ磁芯</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3" data-tag="pq" data-level1="core">
+                <div class="product-card">
+                    <div class="prod-img-wrap"><img src="image/product/磁芯/PQ-EC-ER磁芯/pq-ec-er.JPG" alt="PQ/EC/ER系列"></div>
+                    <div class="prod-info">
+                        <div class="prod-name" data-i18n="prod.PQECERCore.name">PQ/EC/ER系列</div>
+                        <div class="prod-param" data-i18n="prod.PQECERCore.desc">PQ/EC/ER磁芯</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="emptyState" class="text-center text-muted py-5" style="display:none;">
+            暂无符合条件的产品，请尝试其他分类或关键词。
+        </div>
+
+        <!-- 分页 -->
+        <div class="pagination-wrap d-flex justify-content-center">
+            <nav>
+                <ul class="pagination" id="pagination">
+                    <!-- JS动态生成 -->
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mb-4">
+                    <h5 data-i18n="footer.contact">联系我们</h5>
+                    <div class="footer-contact-item">
+                        <i>📞</i>
+                        <span data-i18n="footer.phone">电话：13906687359 / 13957885837 / 13586569986</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i>✉️</i>
+                        <span data-i18n="footer.email">zzujun@163.com / sales01@commonde.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i>📍</i>
+                        <span data-i18n="footer.address">地址：浙江省宁波市鄞州区姜山镇联东U谷21号楼</span>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 data-i18n="footer.quickNav">快速导航</h5>
+                    <ul>
+                        <li><a href="index.html" data-i18n="footer.nav.home">首页</a></li>
+                        <li><a href="about.html" data-i18n="footer.nav.about">关于我们</a></li>
+                        <li><a href="product.html" data-i18n="footer.nav.product">产品中心</a></li>
+                        <li><a href="equipment.html" data-i18n="footer.nav.equipment">设备展示</a></li>
+                        <li><a href="contact.html" data-i18n="footer.nav.contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 data-i18n="footer.products">产品展示</h5>
+                    <ul>
+                        <li><a href="#" data-i18n="footer.prod1">共模电感</a></li>
+                        <li><a href="#" data-i18n="footer.prod2">贴片电感</a></li>
+                        <li><a href="#" data-i18n="footer.prod3">铁粉芯电感</a></li>
+                        <li><a href="#" data-i18n="footer.prod4">环形电感</a></li>
+                        <li><a href="#" data-i18n="footer.prod5">滤波电感/储能电感/PFC电感(合金磁粉芯)</a></li>
+                        <li><a href="#" data-i18n="footer.prod6">电源变压器PFC电感/BUCK电感</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span data-i18n="footer.copyright">版权所有 © 2026 宁波欧斯特电子有限公司 | 电话：13906687359 / 13957885837 / 13586569986 | 浙ICP备2026014142号-1</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ====== 国际化文案配置 ====== -->
+    <script>
+    const i18n = {
+        zh: {
+            'nav.home': '首页',
+            'nav.about': '关于我们',
+            'nav.product': '产品中心',
+            'nav.equipment': '设备展示',
+            'nav.contact': '联系我们',
+            'page.title': '产品中心',
+            'level1.common': '共模电感',
+            'level1.choke': '工字电感',
+            'level1.transformer': '高频变压器',
+            'level1.inductor': '电感',
+            'level1.core': '磁芯',
+            'level2.all': '所有分类',
+            // 二级分类标签
+            'level2.ATQ': '贴片电感',
+            'level2.SQ': 'SQ扁平线共模',
+            'level2.CASE': '多线槽EE/EF/EFD型共模',
+            'level2.DS': '方形共模',
+            'level2.EC': '环形共模',
+            'level2.ni_zn_plug': '镍锌工字电感（插件）',
+            'level2.ni_zn_tape': '镍锌工字电感（带编）',
+            'level2.mn_zn': '锰锌工字型电感',
+            'level2.flat': '嵌入式超薄扁平变压器',
+            'level2.pq': 'PQ型磁芯变压器',
+            'level2.epc': 'EFD/EPC型磁芯变压器',
+            'level2.er_ec': 'ER/EC/EQ型磁芯变压器',
+            'level2.ee': 'EE型磁芯变压器',
+            'level2.edr': 'ED/EDR型磁芯变压器',
+            'level2.gui_lv': '铁粉芯 铁硅 铁硅铝电感',
+            'level2.pfc': '滤波电感 PFC电感',
+            'level2.eq': 'EQ磁芯',
+            // 产品名称/描述（节选）
+            'prod.SQ1008.name': 'SQ1008 立式扁平线共模',
+            'prod.SQ1008.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1111V.name': 'SQ1111 立式扁平线共模',
+            'prod.SQ1111V.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1111H.name': 'SQ1111 卧式扁平线共模',
+            'prod.SQ1111H.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1115.name': 'SQ1115 立式扁平线共模',
+            'prod.SQ1115.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1212.name': 'SQ1212卧式扁平线共模',
+            'prod.SQ1212.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1314.name': 'SQ1314 立式扁平线共模',
+            'prod.SQ1314.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1318.name': 'SQ1318 立式扁平线共模',
+            'prod.SQ1318.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1322.name': 'SQ1322 卧式扁平线共模',
+            'prod.SQ1322.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1522.name': 'SQ1522 卧式扁平线共模',
+            'prod.SQ1522.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1624V.name': 'SQ1624立式扁平线共模',
+            'prod.SQ1624V.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1624H.name': 'SQ1624 卧式扁平线共模',
+            'prod.SQ1624H.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1619V.name': 'SQ1619立式扁平线共模',
+            'prod.SQ1619V.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1616.name': 'SQ1616立式扁平线共模',
+            'prod.SQ1616.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1619H.name': 'SQ1619卧式扁平线共模',
+            'prod.SQ1619H.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ2628.name': 'SQ2628 立式扁平线共模',
+            'prod.SQ2628.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1820.name': 'SQ1820立式扁平线共模',
+            'prod.SQ1820.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1824.name': 'SQ1824立式扁平线共模',
+            'prod.SQ1824.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1829H.name': 'SQ1829卧式扁平线共模',
+            'prod.SQ1829H.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1829V.name': 'SQ1829 立式扁平线共模',
+            'prod.SQ1829V.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1914.name': 'SQ1914卧式扁平线共模',
+            'prod.SQ1914.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ2023H.name': 'SQ2023卧式扁平线共模',
+            'prod.SQ2023H.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ2023V.name': 'SQ2023 立式扁平线共模',
+            'prod.SQ2023V.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ2631H.name': 'SQ2631卧式扁平线共模',
+            'prod.SQ2631H.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ2631V.name': 'SQ2631立式扁平线共模',
+            'prod.SQ2631V.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.SQ1212V.name': 'SQ1212立式扁平线共模',
+            'prod.SQ1212V.desc': 'SQ扁平线共模（锰锌/镍锌磁芯）',
+            'prod.EE8_3_2.name': 'EE8.3 (卧式二槽共模)',
+            'prod.EE8_3_2.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EE8_3_4.name': 'EE8.3 (卧式四槽共模)',
+            'prod.EE8_3_4.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EF1313.name': 'EF1313(立式四槽共模)',
+            'prod.EF1313.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EF1013.name': 'EF1013(立式四槽共模)',
+            'prod.EF1013.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EF1618.name': 'EF1618(立式四槽共模)',
+            'prod.EF1618.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EF20.name': 'EF20(立式四槽共模)',
+            'prod.EF20.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EFD1315.name': 'EFD1315(卧式四槽共模)',
+            'prod.EFD1315.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EFD1520.name': 'EFD1520(卧式四槽共模)',
+            'prod.EFD1520.desc': '多线槽EE/EF/EFD型共模',
+            'prod.EP10.name': 'EP10',
+            'prod.EP10.desc': '多线槽EE/EF/EFD型共模',
+            'prod.UF9_8.name': 'UF9.8',
+            'prod.UF9_8.desc': '多线槽EE/EF/EFD型共模',
+            'prod.F8X10X3.name': 'F8X10X3 立式共模',
+            'prod.F8X10X3.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F8X10X5.name': 'F8X10X5卧式共模',
+            'prod.F8X10X5.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F8X10X7.name': 'F8X10X7卧式共模',
+            'prod.F8X10X7.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F13X14X7.name': 'F13X14X7 卧式共模',
+            'prod.F13X14X7.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1214.name': 'F1214 立式共模',
+            'prod.F1214.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1314.name': 'F1314 卧式共模',
+            'prod.F1314.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F2023.name': 'F2023 卧式共模(圆线)',
+            'prod.F2023.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1418H.name': 'F1418 卧式共模(圆线)',
+            'prod.F1418H.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1418V.name': 'F1418 立式共模',
+            'prod.F1418V.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1515.name': 'F1515 立式共模',
+            'prod.F1515.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1614.name': 'F1614卧式共模',
+            'prod.F1614.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1720.name': 'F1720 卧式共模',
+            'prod.F1720.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F1724.name': 'F1724 卧式共模',
+            'prod.F1724.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F2022.name': 'F2022 卧式共模',
+            'prod.F2022.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F2124.name': 'F2124 卧式共模',
+            'prod.F2124.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F2225.name': 'F2225 卧式共模',
+            'prod.F2225.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F3028.name': 'F3028 卧式共模',
+            'prod.F3028.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.F8x10.name': 'F8x10 卧式共模',
+            'prod.F8x10.desc': '方形共模（锰锌/镍锌磁芯）',
+            'prod.T6X3X3.name': 'T6X3X3 立式共模',
+            'prod.T6X3X3.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T9X5X3.name': 'T9X5X3 立式共模',
+            'prod.T9X5X3.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T9X5X4SMD.name': 'T9X5X4 贴片共模',
+            'prod.T9X5X4SMD.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T12_7H.name': 'T12.7X7.8X6 卧式共模',
+            'prod.T12_7H.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T12_7SMD.name': 'T12.7X7.8X6 贴片共模',
+            'prod.T12_7SMD.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T9X5X4.name': 'T9X5X4 卧式共模',
+            'prod.T9X5X4.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T9X5X6.name': 'T9X5X6 贴片共模',
+            'prod.T9X5X6.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T9X5X5.name': 'T9X5X5 卧式共模',
+            'prod.T9X5X5.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T12_7V.name': 'T12.7X7.8X6 立式共模',
+            'prod.T12_7V.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.T18X10X8.name': 'T18X10X8 环形共模',
+            'prod.T18X10X8.desc': '环形共模（锰锌/镍锌磁芯）',
+            'prod.chokeMnZn.name': '工字型电感',
+            'prod.chokeMnZn.desc': '工字型电感（锰锌铁氧体磁芯）',
+            'prod.chokeNiZnPlug.name': '工字型电感',
+            'prod.chokeNiZnPlug.desc': '工字型电感（镍锌铁氧体磁芯）',
+            'prod.chokeNiZnTape.name': '带编工字型电感',
+            'prod.chokeNiZnTape.desc': '工字型电感（镍锌铁氧体磁芯）',
+            'prod.ED2137.name': 'ED2137',
+            'prod.ED2137.desc': '嵌入式超薄扁平变压器',
+            'prod.ED27.name': 'ED27',
+            'prod.ED27.desc': '嵌入式超薄扁平变压器',
+            'prod.EDR4112.name': 'EDR4112',
+            'prod.EDR4112.desc': '嵌入式超薄扁平变压器',
+            'prod.ER25.name': 'ER25',
+            'prod.ER25.desc': '嵌入式超薄扁平变压器',
+            'prod.ER2511.name': 'ER2511',
+            'prod.ER2511.desc': '嵌入式超薄扁平变压器',
+            'prod.ERW3214.name': 'ERW3214',
+            'prod.ERW3214.desc': '嵌入式超薄扁平变压器',
+            'prod.PQ2016.name': 'PQ2016',
+            'prod.PQ2016.desc': 'PQ磁芯变压器',
+            'prod.PQ2020.name': 'PQ2020',
+            'prod.PQ2020.desc': 'PQ磁芯变压器',
+            'prod.EFD15.name': 'EFD15',
+            'prod.EFD15.desc': 'EFD磁芯变压器',
+            'prod.EPC15.name': 'EPC15',
+            'prod.EPC15.desc': 'EPC磁芯变压器',
+            'prod.EC2010.name': 'EC2010 卧式变压器',
+            'prod.EC2010.desc': 'EC磁芯变压器',
+            'prod.EQ2511.name': 'EQ2511 卧式变压器',
+            'prod.EQ2511.desc': 'EQ磁芯变压器',
+            'prod.EE12.name': 'EE12 卧式变压器',
+            'prod.EE12.desc': 'EE磁芯变压器',
+            'prod.EE13.name': 'EE13 卧式变压器',
+            'prod.EE13.desc': 'EE磁芯变压器',
+            'prod.EDR1840.name': 'EDR1840',
+            'prod.EDR1840.desc': 'EDR磁芯变压器',
+            'prod.ED2311.name': 'ED2311',
+            'prod.ED2311.desc': 'ED磁芯变压器',
+            'prod.ironPowder.name': '铁粉芯电感',
+            'prod.ironSilicon.name': '铁硅电感',
+            'prod.ironSiliconAl.name': '铁硅铝电感',
+            'prod.filterInductor.name': '滤波电感',
+            'prod.pfcInductor.name': 'PFC电感',
+            'prod.ED2121Core.name': 'ED2121',
+            'prod.ED2121Core.desc': 'ED磁芯',
+            'prod.EECore.name': 'EE系列',
+            'prod.EECore.desc': 'EE磁芯',
+            'prod.EPCCore.name': 'EPC系列',
+            'prod.EPCCore.desc': 'EPC磁芯',
+            'prod.EQCore.name': 'EQ系列',
+            'prod.EQCore.desc': 'EQ磁芯',
+            'prod.PQECERCore.name': 'PQ/EC/ER系列',
+            'prod.PQECERCore.desc': 'PQ/EC/ER磁芯',
+            'footer.contact': '联系我们',
+            'footer.phone': '电话：13906687359 / 13957885837 / 13586569986',
+            'footer.email': 'zzujun@163.com / sales01@commonde.com',
+            'footer.address': '地址：浙江省宁波市鄞州区姜山镇联东U谷21号楼',
+            'footer.quickNav': '快速导航',
+            'footer.nav.home': '首页',
+            'footer.nav.about': '关于我们',
+            'footer.nav.product': '产品中心',
+            'footer.nav.equipment': '设备展示',
+            'footer.nav.contact': '联系我们',
+            'footer.products': '产品展示',
+            'footer.prod1': '共模电感',
+            'footer.prod2': '贴片电感',
+            'footer.prod3': '铁粉芯电感',
+            'footer.prod4': '环形电感',
+            'footer.prod5': '滤波电感/储能电感/PFC电感(合金磁粉芯)',
+            'footer.prod6': '电源变压器PFC电感/BUCK电感',
+            'footer.copyright': '版权所有 © 2026 宁波欧斯特电子有限公司 | 电话：13906687359 / 13957885837 / 13586569986 | 浙ICP备2026014142号-1'
+        },
+        en: {
+            'nav.home': 'Home',
+            'nav.about': 'About Us',
+            'nav.product': 'Products',
+            'nav.equipment': 'Equipment',
+            'nav.contact': 'Contact Us',
+            'page.title': 'Products',
+            'level1.common': 'Common Mode Inductors',
+            'level1.choke': 'I-Shaped Inductors',
+            'level1.transformer': 'High-Frequency Transformers',
+            'level1.inductor': 'Inductors',
+            'level1.core': 'Cores',
+            'level2.all': 'All Categories',
+            // 二级分类标签
+            'level2.ATQ': 'SMD Inductors',
+            'level2.SQ': 'SQ Flat Wire Common Mode',
+            'level2.CASE': 'Multi-Slot EE/EF/EFD Common Mode',
+            'level2.DS': 'Square Common Mode',
+            'level2.EC': 'Toroidal Common Mode',
+            'level2.ni_zn_plug': 'NiZn I-Shaped (Plug-in)',
+            'level2.ni_zn_tape': 'NiZn I-Shaped (Taped)',
+            'level2.mn_zn': 'MnZn I-Shaped Inductors',
+            'level2.flat': 'Embedded Ultra-Thin Flat Transformers',
+            'level2.pq': 'PQ Core Transformers',
+            'level2.epc': 'EFD/EPC Core Transformers',
+            'level2.er_ec': 'ER/EC/EQ Core Transformers',
+            'level2.ee': 'EE Core Transformers',
+            'level2.edr': 'ED/EDR Core Transformers',
+            'level2.gui_lv': 'Iron Powder / Iron Silicon / Iron Silicon Aluminum Inductors',
+            'level2.pfc': 'Filter Inductors / PFC Inductors',
+            'level2.eq': 'EQ Cores',
+            // 产品名称/描述（节选）
+            'prod.SQ1008.name': 'SQ1008 Vertical Flat Wire Common Mode',
+            'prod.SQ1008.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1111V.name': 'SQ1111 Vertical Flat Wire Common Mode',
+            'prod.SQ1111V.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1111H.name': 'SQ1111 Horizontal Flat Wire Common Mode',
+            'prod.SQ1111H.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1115.name': 'SQ1115 Vertical Flat Wire Common Mode',
+            'prod.SQ1115.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1212.name': 'SQ1212 Horizontal Flat Wire Common Mode',
+            'prod.SQ1212.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1314.name': 'SQ1314 Vertical Flat Wire Common Mode',
+            'prod.SQ1314.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1318.name': 'SQ1318 Vertical Flat Wire Common Mode',
+            'prod.SQ1318.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1322.name': 'SQ1322 Horizontal Flat Wire Common Mode',
+            'prod.SQ1322.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1522.name': 'SQ1522 Horizontal Flat Wire Common Mode',
+            'prod.SQ1522.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1624V.name': 'SQ1624 Vertical Flat Wire Common Mode',
+            'prod.SQ1624V.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1624H.name': 'SQ1624 Horizontal Flat Wire Common Mode',
+            'prod.SQ1624H.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1619V.name': 'SQ1619 Vertical Flat Wire Common Mode',
+            'prod.SQ1619V.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1616.name': 'SQ1616 Vertical Flat Wire Common Mode',
+            'prod.SQ1616.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1619H.name': 'SQ1619 Horizontal Flat Wire Common Mode',
+            'prod.SQ1619H.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ2628.name': 'SQ2628 Vertical Flat Wire Common Mode',
+            'prod.SQ2628.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1820.name': 'SQ1820 Vertical Flat Wire Common Mode',
+            'prod.SQ1820.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1824.name': 'SQ1824 Vertical Flat Wire Common Mode',
+            'prod.SQ1824.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1829H.name': 'SQ1829 Horizontal Flat Wire Common Mode',
+            'prod.SQ1829H.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1829V.name': 'SQ1829 Vertical Flat Wire Common Mode',
+            'prod.SQ1829V.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1914.name': 'SQ1914 Horizontal Flat Wire Common Mode',
+            'prod.SQ1914.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ2023H.name': 'SQ2023 Horizontal Flat Wire Common Mode',
+            'prod.SQ2023H.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ2023V.name': 'SQ2023 Vertical Flat Wire Common Mode',
+            'prod.SQ2023V.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ2631H.name': 'SQ2631 Horizontal Flat Wire Common Mode',
+            'prod.SQ2631H.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ2631V.name': 'SQ2631 Vertical Flat Wire Common Mode',
+            'prod.SQ2631V.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.SQ1212V.name': 'SQ1212 Vertical Flat Wire Common Mode',
+            'prod.SQ1212V.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+            'prod.EE8_3_2.name': 'EE8.3 (Horizontal 2-Slot Common Mode)',
+            'prod.EE8_3_2.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EE8_3_4.name': 'EE8.3 (Horizontal 4-Slot Common Mode)',
+            'prod.EE8_3_4.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EF1313.name': 'EF1313 (Vertical 4-Slot Common Mode)',
+            'prod.EF1313.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EF1013.name': 'EF1013 (Vertical 4-Slot Common Mode)',
+            'prod.EF1013.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EF1618.name': 'EF1618 (Vertical 4-Slot Common Mode)',
+            'prod.EF1618.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EF20.name': 'EF20 (Vertical 4-Slot Common Mode)',
+            'prod.EF20.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EFD1315.name': 'EFD1315 (Horizontal 4-Slot Common Mode)',
+            'prod.EFD1315.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EFD1520.name': 'EFD1520 (Horizontal 4-Slot Common Mode)',
+            'prod.EFD1520.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.EP10.name': 'EP10',
+            'prod.EP10.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.UF9_8.name': 'UF9.8',
+            'prod.UF9_8.desc': 'Multi-Slot EE/EF/EFD Common Mode',
+            'prod.F8X10X3.name': 'F8X10X3 Vertical Common Mode',
+            'prod.F8X10X3.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F8X10X5.name': 'F8X10X5 Horizontal Common Mode',
+            'prod.F8X10X5.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F8X10X7.name': 'F8X10X7 Horizontal Common Mode',
+            'prod.F8X10X7.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F13X14X7.name': 'F13X14X7 Horizontal Common Mode',
+            'prod.F13X14X7.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1214.name': 'F1214 Vertical Common Mode',
+            'prod.F1214.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1314.name': 'F1314 Horizontal Common Mode',
+            'prod.F1314.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F2023.name': 'F2023 Horizontal Common Mode (Round Wire)',
+            'prod.F2023.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1418H.name': 'F1418 Horizontal Common Mode (Round Wire)',
+            'prod.F1418H.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1418V.name': 'F1418 Vertical Common Mode',
+            'prod.F1418V.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1515.name': 'F1515 Vertical Common Mode',
+            'prod.F1515.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1614.name': 'F1614 Horizontal Common Mode',
+            'prod.F1614.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1720.name': 'F1720 Horizontal Common Mode',
+            'prod.F1720.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F1724.name': 'F1724 Horizontal Common Mode',
+            'prod.F1724.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F2022.name': 'F2022 Horizontal Common Mode',
+            'prod.F2022.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F2124.name': 'F2124 Horizontal Common Mode',
+            'prod.F2124.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F2225.name': 'F2225 Horizontal Common Mode',
+            'prod.F2225.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F3028.name': 'F3028 Horizontal Common Mode',
+            'prod.F3028.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.F8x10.name': 'F8x10 Horizontal Common Mode',
+            'prod.F8x10.desc': 'Square Common Mode (MnZn/NiZn Core)',
+            'prod.T6X3X3.name': 'T6X3X3 Vertical Common Mode',
+            'prod.T6X3X3.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T9X5X3.name': 'T9X5X3 Vertical Common Mode',
+            'prod.T9X5X3.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T9X5X4SMD.name': 'T9X5X4 SMD Common Mode',
+            'prod.T9X5X4SMD.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T12_7H.name': 'T12.7X7.8X6 Horizontal Common Mode',
+            'prod.T12_7H.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T12_7SMD.name': 'T12.7X7.8X6 SMD Common Mode',
+            'prod.T12_7SMD.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T9X5X4.name': 'T9X5X4 Horizontal Common Mode',
+            'prod.T9X5X4.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T9X5X6.name': 'T9X5X6 SMD Common Mode',
+            'prod.T9X5X6.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T9X5X5.name': 'T9X5X5 Horizontal Common Mode',
+            'prod.T9X5X5.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T12_7V.name': 'T12.7X7.8X6 Vertical Common Mode',
+            'prod.T12_7V.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.T18X10X8.name': 'T18X10X8 Toroidal Common Mode',
+            'prod.T18X10X8.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+            'prod.chokeMnZn.name': 'I-Shaped Inductor',
+            'prod.chokeMnZn.desc': 'I-Shaped Inductor (MnZn Ferrite Core)',
+            'prod.chokeNiZnPlug.name': 'I-Shaped Inductor',
+            'prod.chokeNiZnPlug.desc': 'I-Shaped Inductor (NiZn Ferrite Core)',
+            'prod.chokeNiZnTape.name': 'Taped I-Shaped Inductor',
+            'prod.chokeNiZnTape.desc': 'I-Shaped Inductor (NiZn Ferrite Core)',
+            'prod.ED2137.name': 'ED2137',
+            'prod.ED2137.desc': 'Embedded Ultra-Thin Flat Transformer',
+            'prod.ED27.name': 'ED27',
+            'prod.ED27.desc': 'Embedded Ultra-Thin Flat Transformer',
+            'prod.EDR4112.name': 'EDR4112',
+            'prod.EDR4112.desc': 'Embedded Ultra-Thin Flat Transformer',
+            'prod.ER25.name': 'ER25',
+            'prod.ER25.desc': 'Embedded Ultra-Thin Flat Transformer',
+            'prod.ER2511.name': 'ER2511',
+            'prod.ER2511.desc': 'Embedded Ultra-Thin Flat Transformer',
+            'prod.ERW3214.name': 'ERW3214',
+            'prod.ERW3214.desc': 'Embedded Ultra-Thin Flat Transformer',
+            'prod.PQ2016.name': 'PQ2016',
+            'prod.PQ2016.desc': 'PQ Core Transformer',
+            'prod.PQ2020.name': 'PQ2020',
+            'prod.PQ2020.desc': 'PQ Core Transformer',
+            'prod.EFD15.name': 'EFD15',
+            'prod.EFD15.desc': 'EFD Core Transformer',
+            'prod.EPC15.name': 'EPC15',
+            'prod.EPC15.desc': 'EPC Core Transformer',
+            'prod.EC2010.name': 'EC2010 Horizontal Transformer',
+            'prod.EC2010.desc': 'EC Core Transformer',
+            'prod.EQ2511.name': 'EQ2511 Horizontal Transformer',
+            'prod.EQ2511.desc': 'EQ Core Transformer',
+            'prod.EE12.name': 'EE12 Horizontal Transformer',
+            'prod.EE12.desc': 'EE Core Transformer',
+            'prod.EE13.name': 'EE13 Horizontal Transformer',
+            'prod.EE13.desc': 'EE Core Transformer',
+            'prod.EDR1840.name': 'EDR1840',
+            'prod.EDR1840.desc': 'EDR Core Transformer',
+            'prod.ED2311.name': 'ED2311',
+            'prod.ED2311.desc': 'ED Core Transformer',
+            'prod.ironPowder.name': 'Iron Powder Core Inductor',
+            'prod.ironSilicon.name': 'Iron Silicon Inductor',
+            'prod.ironSiliconAl.name': 'Iron Silicon Aluminum Inductor',
+            'prod.filterInductor.name': 'Filter Inductor',
+            'prod.pfcInductor.name': 'PFC Inductor',
+            'prod.ED2121Core.name': 'ED2121',
+            'prod.ED2121Core.desc': 'ED Core',
+            'prod.EECore.name': 'EE Series',
+            'prod.EECore.desc': 'EE Core',
+            'prod.EPCCore.name': 'EPC Series',
+            'prod.EPCCore.desc': 'EPC Core',
+            'prod.EQCore.name': 'EQ Series',
+            'prod.EQCore.desc': 'EQ Core',
+            'prod.PQECERCore.name': 'PQ/EC/ER Series',
+            'prod.PQECERCore.desc': 'PQ/EC/ER Cores',
+            'footer.contact': 'Contact Us',
+            'footer.phone': 'Tel: 13906687359 / 13957885837 / 13586569986',
+            'footer.email': 'zzujun@163.com / sales01@commonde.com',
+            'footer.address': 'Address: Building 21, Liandong U Valley, Jiangshan Town, Yinzhou District, Ningbo, Zhejiang, China',
+            'footer.quickNav': 'Quick Links',
+            'footer.nav.home': 'Home',
+            'footer.nav.about': 'About Us',
+            'footer.nav.product': 'Products',
+            'footer.nav.equipment': 'Equipment',
+            'footer.nav.contact': 'Contact Us',
+            'footer.products': 'Products',
+            'footer.prod1': 'Common Mode Inductors',
+            'footer.prod2': 'SMD Inductors',
+            'footer.prod3': 'Iron Powder Core Inductors',
+            'footer.prod4': 'Toroidal Inductors',
+            'footer.prod5': 'Filter Inductors / Energy Storage Inductors / PFC Inductors (Alloy Powder Core)',
+            'footer.prod6': 'Power Transformer PFC Inductors / BUCK Inductors',
+            'footer.copyright': 'Copyright © 2026 Ningbo OSTCORE Electronics Co., Ltd. | Tel: 13906687359 / 13957885837 / 13586569986 | Zhejiang ICP No. 2026014142-1'
+        }
+    };
+
+    // ===== 语言切换函数 =====
+    function switchLanguage(lang) {
+        // 更新页面标题
+        document.title = lang === 'en' ? 'Products - Ningbo OSTCORE Transformer & Inductor' : '产品中心 - 宁波欧斯特变压器电感';
+
+        // 更新所有带 data-i18n 属性的元素
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[lang] && i18n[lang][key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = i18n[lang][key];
+                } else {
+                    el.textContent = i18n[lang][key];
+                }
+            }
+        });
+
+        // 更新搜索框占位符
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.placeholder = lang === 'en' ? 'Enter product name or model' : '请输入产品名称或型号';
+        }
+
+        // 更新空状态提示
+        const emptyState = document.getElementById('emptyState');
+        if (emptyState) {
+            emptyState.textContent = lang === 'en' ? 'No products match your criteria. Please try another category or keyword.' : '暂无符合条件的产品，请尝试其他分类或关键词。';
+        }
+
+        // 更新二级分类标签（重新渲染以应用翻译）
+        renderLevel2(currentLevel1);
+
+        // 更新导航栏激活状态
+        const links = document.querySelectorAll('.nav-link');
+        const currentHref = window.location.href;
+        links.forEach(link => {
+            if (currentHref.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#') {
+                links.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+
+        // 更新语言切换按钮样式
+        const langZh = document.getElementById('langZh');
+        const langEn = document.getElementById('langEn');
+        if (lang === 'zh') {
+            langZh.classList.add('active');
+            langZh.classList.remove('inactive');
+            langEn.classList.remove('active');
+            langEn.classList.add('inactive');
+            document.documentElement.lang = 'zh-CN';
+        } else {
+            langEn.classList.add('active');
+            langEn.classList.remove('inactive');
+            langZh.classList.remove('active');
+            langZh.classList.add('inactive');
+            document.documentElement.lang = 'en';
+        }
+
+        // 存储语言偏好
+        try {
+            localStorage.setItem('preferredLang', lang);
+        } catch(e) {}
+
+        // 重新应用分页（因为分类标签重新渲染了）
+        filterAndPaginate();
+    }
+
+    // ===== 页面交互脚本 =====
+    document.addEventListener('DOMContentLoaded', function () {
+        // ---------- 二级分类数据（使用i18n key） ----------
+        const level2Data = {
+            common: {
+                items: [
+                    { val: 'all', labelKey: 'level2.all' },
+                    { val: 'ATQ', labelKey: 'level2.ATQ' },
+                    { val: 'SQ', labelKey: 'level2.SQ' },
+                    { val: 'CASE', labelKey: 'level2.CASE' },
+                    { val: 'DS', labelKey: 'level2.DS' },
+                    { val: 'EC', labelKey: 'level2.EC' }
+                ],
+                defaultActive: 'all'
+            },
+            choke: {
+                items: [
+                    { val: 'all', labelKey: 'level2.all' },
+                    { val: 'ni_zn_plug', labelKey: 'level2.ni_zn_plug' },
+                    { val: 'ni_zn_tape', labelKey: 'level2.ni_zn_tape' },
+                    { val: 'mn_zn', labelKey: 'level2.mn_zn' }
+                ],
+                defaultActive: 'all'
+            },
+            transformer: {
+                items: [
+                    { val: 'all', labelKey: 'level2.all' },
+                    { val: 'flat', labelKey: 'level2.flat' },
+                    { val: 'pq', labelKey: 'level2.pq' },
+                    { val: 'epc', labelKey: 'level2.epc' },
+                    { val: 'er_ec', labelKey: 'level2.er_ec' },
+                    { val: 'ee', labelKey: 'level2.ee' },
+                    { val: 'edr', labelKey: 'level2.edr' }
+                ],
+                defaultActive: 'all'
+            },
+            inductor: {
+                items: [
+                    { val: 'all', labelKey: 'level2.all' },
+                    { val: 'gui_lv', labelKey: 'level2.gui_lv' },
+                    { val: 'pfc', labelKey: 'level2.pfc' }
+                ],
+                defaultActive: 'all'
+            },
+            core: {
+                items: [
+                    { val: 'all', labelKey: 'level2.all' },
+                    { val: 'edr', labelKey: 'level2.edr' },
+                    { val: 'ee', labelKey: 'level2.ee' },
+                    { val: 'eq', labelKey: 'level2.eq' },
+                    { val: 'epc', labelKey: 'level2.epc' },
+                    { val: 'pq', labelKey: 'level2.pq' }
+                ],
+                defaultActive: 'all'
+            }
+        };
+
+        // 分页配置
+        const ITEMS_PER_PAGE = 12;
+        let currentPage = 1;
+        let currentLevel1 = 'common';
+        let currentLevel2 = 'all';
+        let currentLang = 'zh';
+
+        const level1Items = document.querySelectorAll('.level1-item');
+        const level2Grid = document.getElementById('level2Grid');
+        const productList = document.getElementById('productList');
+        const productCards = Array.from(productList.querySelectorAll("[data-tag]"));
+        const searchInput = document.getElementById('searchInput');
+        const emptyState = document.getElementById('emptyState');
+        const paginationUl = document.getElementById('pagination');
+
+        // 获取当前语言
+        function getLang() {
+            try {
+                return localStorage.getItem('preferredLang') || 'zh';
+            } catch(e) { return 'zh'; }
+        }
+
+        // ---------- 渲染二级分类 ----------
+        function renderLevel2(level1Key) {
+            const data = level2Data[level1Key];
+            if (!data) return;
+
+            const lang = getLang();
+            currentLang = lang;
+
+            level2Grid.innerHTML = data.items.map(item => {
+                let label = i18n[lang]?.[item.labelKey] || item.labelKey;
+                return `
+                    <div class="level2-item ${item.val === data.defaultActive ? 'active' : ''}"
+                         data-val="${item.val}">
+                        ${label}
+                    </div>
+                `;
+            }).join('');
+
+            currentLevel2 = data.defaultActive;
+            bindLevel2Events();
+            currentPage = 1;
+            filterAndPaginate();
+        }
+
+        // ---------- 绑定二级分类点击事件 ----------
+        function bindLevel2Events() {
+            level2Grid.querySelectorAll('.level2-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    level2Grid.querySelectorAll('.level2-item').forEach(node => {
+                        node.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    currentLevel2 = this.dataset.val;
+                    currentPage = 1;
+                    filterAndPaginate();
+                });
+            });
+        }
+
+        // ---------- 筛选 + 分页 ----------
+        function filterAndPaginate() {
+            const keyword = searchInput.value.trim().toLowerCase();
+
+            const filteredCards = productCards.filter(card => {
+                const tag = card.dataset.tag || '';
+                const text = (card.textContent + ' ' + (card.querySelector('img')?.getAttribute('alt') || '') + ' ' + tag).toLowerCase();
+
+                const tags = tag.split(',').map(value => value.trim()).filter(Boolean);
+                const matchesCategory =
+                    currentLevel2 === 'all' || tags.includes(currentLevel2);
+                const matchesKeyword =
+                    keyword === '' || text.includes(keyword);
+
+                const productLevel1 = card.dataset.level1 || 'common';
+                const matchesLevel1 = productLevel1 === currentLevel1;
+
+                return matchesLevel1 && matchesCategory && matchesKeyword;
+            });
+
+            const totalItems = filteredCards.length;
+            const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageCards = filteredCards.slice(start, end);
+
+            productCards.forEach(card => card.style.display = 'none');
+            pageCards.forEach(card => card.style.display = '');
+
+            if (emptyState) emptyState.style.display = totalItems === 0 ? 'block' : 'none';
+
+            renderPagination(totalPages);
+        }
+
+        // ---------- 渲染分页 ----------
+        function renderPagination(totalPages) {
+            if (!paginationUl) return;
+            if (totalPages <= 1) {
+                paginationUl.innerHTML = '';
+                return;
+            }
+
+            const lang = getLang();
+            const prevText = lang === 'en' ? 'Previous' : '上一页';
+            const nextText = lang === 'en' ? 'Next' : '下一页';
+
+            let html = '';
+
+            html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                        <a class="page-link" href="#" data-page="${currentPage - 1}">${prevText}</a>
+                    </li>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" data-page="${i}">${i}</a>
+                        </li>`;
+            }
+
+            html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                        <a class="page-link" href="#" data-page="${currentPage + 1}">${nextText}</a>
+                    </li>`;
+
+            paginationUl.innerHTML = html;
+
+            paginationUl.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const page = parseInt(this.dataset.page);
+                    if (isNaN(page) || page < 1 || page > totalPages) return;
+                    currentPage = page;
+                    filterAndPaginate();
+                    document.querySelector('.product-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        }
+
+        // ---------- 一级分类切换 ----------
+        level1Items.forEach(item => {
+            item.addEventListener('click', function () {
+                level1Items.forEach(node => node.classList.remove('active'));
+                this.classList.add('active');
+
+                currentLevel1 = this.dataset.level1;
+                currentPage = 1;
+                renderLevel2(currentLevel1);
+            });
+        });
+
+        // ---------- 搜索（防抖） ----------
+        let searchTimer;
+        searchInput.addEventListener('input', function () {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                currentPage = 1;
+                filterAndPaginate();
+            }, 300);
+        });
+
+        // ---------- 初始化 ----------
+        // 读取语言偏好
+        let savedLang = 'zh';
+        try {
+            savedLang = localStorage.getItem('preferredLang') || 'zh';
+        } catch(e) {}
+
+        if (savedLang === 'en') {
+            switchLanguage('en');
+        } else {
+            switchLanguage('zh');
+        }
+
+        // 导航高亮
+        const links = document.querySelectorAll('.nav-link');
+        const currentHref = window.location.href;
+        links.forEach(link => {
+            if (currentHref.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#') {
+                links.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+    });
+    </script>
+</body>
+</html>

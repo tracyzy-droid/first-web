@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁波欧斯特变压器电感</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 全局基础样式 */
+        body {
+            font-family: "Microsoft Yahei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden; /* 防止横向出现滚动条 */
+        }
+        
+        /* ====== 顶部导航栏 ====== */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 24px;
+            color: #009467 !important; 
+            letter-spacing: 0.5px;
+        }
+        .nav-link {
+            color: #333;
+            font-size: 15px;
+            margin: 0 10px;
+            padding-bottom: 5px !important;
+            border-bottom: 2px solid transparent; 
+            transition: all 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #009467 !important;
+            border-bottom: 2px solid #009467; 
+        }
+        .lang-switch {
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lang-switch a {
+            color: #009467;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        .lang-switch a:hover {
+            text-decoration: underline;
+            background-color: #f0f8f4;
+        }
+        .lang-switch a.inactive {
+            color: #666;
+            font-weight: normal;
+        }
+        .lang-switch a.inactive:hover {
+            color: #008050;
+        }
+
+        /* ====== Banner 轮播 ====== */
+        .banner-carousel-wrapper {
+            background-color: #f4f6f8; 
+        }
+        .banner-img-container {
+            width: 100%;
+            height: 55vh; 
+            min-height: 350px;
+            max-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .banner-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center;
+        }
+        @media (max-width: 768px) {
+            .banner-img-container {
+                height: auto;
+                min-height: auto;
+                padding: 0;
+            }
+            .banner-img-container img {
+                width: 100%;
+                height: auto;
+                object-fit: contain; 
+            }
+        }
+        #bannerCarousel .carousel-control-prev,
+        #bannerCarousel .carousel-control-next {
+            width: 44px;
+            height: 44px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+        }
+        #bannerCarousel .carousel-control-prev:hover,
+        #bannerCarousel .carousel-control-next:hover {
+            opacity: 1;
+            background: rgba(0,0,0,0.3);
+        }
+        #bannerCarousel .carousel-control-prev-icon,
+        #bannerCarousel .carousel-control-next-icon {
+            background-image: none !important;
+            background-color: #fff;
+            width: 1.5rem;      
+            height: 1.5rem;     
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
+        #bannerCarousel .carousel-control-prev-icon {
+            -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+            mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+        }
+        #bannerCarousel .carousel-control-next-icon {
+            -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+            mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+        #bannerCarousel .carousel-indicators button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+            margin: 0 4px;
+        }
+        #bannerCarousel .carousel-indicators button.active {
+            background-color: #eb8537;
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        /* ====== 通用板块标题样式 ====== */
+        .section-title {
+            text-align: center;
+            margin: 70px 0 40px;
+            color: #333;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .section-title .title-cn {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .section-title .title-line {
+            width: 40px;
+            height: 3px;
+            background-color: #008050;
+            margin: 0 auto 15px;
+        }
+        .section-title .title-en {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ====== 走进欧斯特电子 (响应式适配优化) ====== */
+        .about-intro {
+            padding: 20px 15px 60px; /* 默认内边距 */
+            text-align: center;
+        }
+        .about-intro h4 {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .about-intro p {
+            color: #555;
+            line-height: 2;
+            font-size: 15px;
+            max-width: 900px;
+            margin: 0 auto 15px;
+            /* 移动端取消两端对齐，避免文字间距过大或超出屏幕 */
+            text-align: left; 
+        }
+        .btn-outline-custom {
+            border: 1px solid #008050;
+            color: #008050;
+            padding: 8px 35px;
+            border-radius: 0; 
+            margin-top: 25px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        .btn-outline-custom:hover {
+            background-color: #008050;
+            color: #fff;
+        }
+
+        /* 手机端特定样式调整 */
+        @media (max-width: 768px) {
+            .about-intro {
+                padding: 10px 20px 50px; /* 左右增加边距，防止文字贴边 */
+            }
+            .about-intro h4 {
+                font-size: 16px; /* 手机端副标题缩小 */
+            }
+            .about-intro p {
+                font-size: 14px; /* 手机端正文字体缩小 */
+                line-height: 1.8; /* 调整行高 */
+                text-align: justify; 
+            }
+            .section-title {
+                margin: 50px 0 30px;
+            }
+        }
+
+        /* ====== 四宫格快捷入口 ====== */
+        .quick-links {
+            background-color: #f8f9fa; 
+            padding: 60px 0;
+        }
+        .quick-card {
+            background: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 100%;
+        }
+        .quick-card img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .quick-card h5 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .quick-card p {
+            font-size: 12px;
+            color: #999;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .quick-card:hover {
+            background-color: #eb8537;
+            border-color: #eb8537;
+            box-shadow: 0 10px 20px rgba(235,133,55,0.2);
+        }
+        .quick-card:hover h5, .quick-card:hover p {
+            color: #fff;
+        }
+
+        /* ====== 产品展示区 ====== */
+        .product-section {
+            padding-bottom: 80px;
+            background-color: #fff;
+        }
+        .product-card {
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+            background: #fff;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+            height: 100%;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            border-color: #008050;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .product-img-box {
+            background-color: #f4f5f7;
+            padding: 0; 
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 220px; 
+            width: 100%;
+            overflow: hidden;
+        }
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+        }
+        .product-card h4 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .product-card p {
+            font-size: 13px;
+            color: #999;
+            margin: 0;
+        }
+
+        /* ====== 页脚 ====== */
+        footer {
+            background-color: #2c3e50; 
+            color: #a0aab2;
+            padding: 60px 0 20px;
+        }
+        footer h5 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        footer h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #008050;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer li {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        footer li a {
+            color: #a0aab2;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        footer li a:hover {
+            color: #fff;
+        }
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .footer-contact-item i {
+            color: #e74c3c; 
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部导航【首页】 -->
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">OSTCORE</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link active" href="index.html" data-i18n="nav.home">首页</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html" data-i18n="nav.about">关于我们</a></li>
+                <li class="nav-item"><a class="nav-link" href="product.html" data-i18n="nav.product">产品中心</a></li>
+                <li class="nav-item"><a class="nav-link" href="equipment.html" data-i18n="nav.equipment">设备展示</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html" data-i18n="nav.contact">联系我们</a></li>
+            </ul>
+            <div class="lang-switch mt-2 mt-lg-0">
+                <a id="langZh" class="active" onclick="switchLanguage('zh')">简体中文</a>
+                <span>/</span>
+                <a id="langEn" class="inactive" onclick="switchLanguage('en')">English</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Banner 轮播 -->
+<section class="banner-carousel-wrapper">
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="banner-img-container">
+                    <img src="image/banner/banner1.png" alt="Banner 1">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="banner-img-container">
+                    <img src="image/banner/banner2.png" alt="Banner 2">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="banner-img-container">
+                    <img src="image/banner/banner3.png" alt="Banner 3">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+<!-- 走进欧斯特电子 -->
+<section class="about-intro container px-4">
+    <div class="section-title">
+        <div class="title-cn" data-i18n="about.title">欧斯特电子</div>
+        <div class="title-line"></div>
+        <div class="title-en" data-i18n="about.titleEn">Company Profile</div>
+    </div>
+    <h4 data-i18n="about.subtitle">软磁铁氧体磁芯及器件的专业制造企业</h4>
+    <p data-i18n="about.desc1">欧斯特电子专注于电气和电子行业磁性元器件的开发与制造，我们的元器件广泛应用于消费品、汽车、电信、办公设备、家用电器、工业电子、新能源电子等领域的众多产品中。</p>
+    <p data-i18n="about.desc2">凭借在磁性元器件生产和开发方面高度的专业能力，欧斯特电子紧密贴近客户需求和市场应用，提供更具竞争力的产品与解决方案。</p>
+    <a href="about.html" class="btn btn-outline-custom" data-i18n="about.btn">查看详情</a>
+</section>
+
+<!-- 四宫格快捷入口 -->
+<section class="quick-links">
+    <div class="container">
+        <div class="row g-3 g-md-4">
+            <div class="col-6 col-md-3">
+                <div class="quick-card" onclick="location.href='about.html'">
+                    <img src="image/icon/公司简介.png" alt="公司简介">
+                    <h5 data-i18n="quick.about">公司简介</h5>
+                    <p data-i18n="quick.aboutEn">Company Profile</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="quick-card" onclick="location.href='product.html'">
+                    <img src="image/icon/产品中心.png" alt="产品中心">
+                    <h5 data-i18n="quick.product">产品中心</h5>
+                    <p data-i18n="quick.productEn">Product Center</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="quick-card" onclick="location.href='equipment.html'">
+                    <img src="image/icon/厂房.png" alt="厂房设备">
+                    <h5 data-i18n="quick.equipment">厂房设备</h5>
+                    <p data-i18n="quick.equipmentEn">Plant Equipment</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="quick-card" onclick="location.href='contact.html'">
+                    <img src="image/icon/联系我们-电话.png" alt="联系我们">
+                    <h5 data-i18n="quick.contact">联系我们</h5>
+                    <p data-i18n="quick.contactEn">Contact Us</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 产品展示 -->
+<section class="product-section container px-4">
+    <div class="section-title">
+        <div class="title-cn" data-i18n="product.title">最新 · 产品展示</div>
+        <div class="title-line"></div>
+        <div class="title-en" data-i18n="product.titleEn">Latest Products</div>
+    </div>
+    
+    <div class="row g-3 g-md-4" id="productList">
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/方形/F8X10X3.JPG" alt="F8x10">
+                </div>
+                <h4 data-i18n="product.p1.name">F8x10x3卧式共模</h4>
+                <p data-i18n="product.p1.desc">方形共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/方形/F8X10X5.JPG" alt="F8x10">
+                </div>
+                <h4 data-i18n="product.p2.name">F8x10x5 卧式共模</h4>
+                <p data-i18n="product.p2.desc">方形共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/环形/T9X5X4.png" alt="T9X5X4">
+                </div>
+                <h4 data-i18n="product.p3.name">T9X5X4 卧式共模</h4>
+                <p data-i18n="product.p3.desc">环形共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/SQ/SQ1619.png" alt="SQ1619">
+                </div>
+                <h4 data-i18n="product.p4.name">SQ1619卧式扁线共模</h4>
+                <p data-i18n="product.p4.desc">SQ扁平线共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/SQ/SQ1212.png" alt="SQ1212">
+                </div>
+                <h4 data-i18n="product.p5.name">SQ1212卧式扁线共模</h4>
+                <p data-i18n="product.p5.desc">SQ扁平线共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/SQ/SQ1318.png" alt="SQ1318">
+                </div>
+                <h4 data-i18n="product.p6.name">SQ1318立式扁线共模</h4>
+                <p data-i18n="product.p6.desc">SQ扁平线共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/SQ/SQ1322 Horizontal.png" alt="SQ1322">
+                </div>
+                <h4 data-i18n="product.p7.name">SQ1322卧式扁线共模</h4>
+                <p data-i18n="product.p7.desc">SQ扁平线共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                <div class="product-img-box">
+                    <img src="image/product/SQ/SQ1824.png" alt="SQ1824">
+                </div>
+                <h4 data-i18n="product.p8.name">SQ1824立式扁线共模</h4>
+                <p data-i18n="product.p8.desc">SQ扁平线共模(锰锌/镍锌磁芯)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                <h5 data-i18n="footer.contact">联系我们</h5>
+                <div class="footer-contact-item">
+                    <i>📞</i>
+                    <span data-i18n="footer.phone">电话：13906687359 / 13957885837 / 13586569986</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i>✉️</i>
+                    <span data-i18n="footer.email">zzujun@163.com / sales01@commonde.com</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i>📍</i>
+                    <span data-i18n="footer.address">地址：浙江省宁波市鄞州区姜山镇联东U谷21号楼</span>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5 data-i18n="footer.quickNav">快速导航</h5>
+                <ul>
+                    <li><a href="index.html" data-i18n="footer.nav.home">首页</a></li>
+                    <li><a href="about.html" data-i18n="footer.nav.about">关于我们</a></li>
+                    <li><a href="product.html" data-i18n="footer.nav.product">产品中心</a></li>
+                    <li><a href="equipment.html" data-i18n="footer.nav.equipment">设备展示</a></li>
+                    <li><a href="contact.html" data-i18n="footer.nav.contact">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5 data-i18n="footer.products">产品展示</h5>
+                <ul>
+                    <li><a href="#" data-i18n="footer.prod1">共模电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod2">贴片电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod3">铁粉芯电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod4">环形电感</a></li>
+                    <li><a href="#" data-i18n="footer.prod5">滤波电感/储能电感/PFC电感(合金磁粉芯)</a></li>
+                    <li><a href="#" data-i18n="footer.prod6">电源变压器PFC电感/BUCK电感</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span data-i18n="footer.copyright">版权所有 © 2026 宁波欧斯特电子有限公司 | 电话：13906687359 / 13957885837 / 13586569986 | 浙ICP备2026014142号-1</span>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ===== 国际化文案配置 =====
+const i18n = {
+    zh: {
+        'nav.home': '首页',
+        'nav.about': '关于我们',
+        'nav.product': '产品中心',
+        'nav.equipment': '设备展示',
+        'nav.contact': '联系我们',
+        'about.title': '欧斯特电子',
+        'about.titleEn': 'Company Profile',
+        'about.subtitle': '软磁铁氧体磁芯及器件的专业制造企业',
+        'about.desc1': '欧斯特电子专注于电气和电子行业磁性元器件的开发与制造，我们的元器件广泛应用于消费品、汽车、电信、办公设备、家用电器、工业电子、新能源电子等领域的众多产品中。',
+        'about.desc2': '凭借在磁性元器件生产和开发方面高度的专业能力，欧斯特电子紧密贴近客户需求和市场应用，提供更具竞争力的产品与解决方案。',
+        'about.btn': '查看详情',
+        'quick.about': '公司简介',
+        'quick.aboutEn': 'Company Profile',
+        'quick.product': '产品中心',
+        'quick.productEn': 'Product Center',
+        'quick.equipment': '厂房设备',
+        'quick.equipmentEn': 'Plant Equipment',
+        'quick.contact': '联系我们',
+        'quick.contactEn': 'Contact Us',
+        'product.title': '最新 · 产品展示',
+        'product.titleEn': 'Latest Products',
+        'product.p1.name': 'F8x10x3卧式共模',
+        'product.p1.desc': '方形共模(锰锌/镍锌磁芯)',
+        'product.p2.name': 'F8x10x5 卧式共模',
+        'product.p2.desc': '方形共模(锰锌/镍锌磁芯)',
+        'product.p3.name': 'T9X5X4 卧式共模',
+        'product.p3.desc': '环形共模(锰锌/镍锌磁芯)',
+        'product.p4.name': 'SQ1619卧式扁线共模',
+        'product.p4.desc': 'SQ扁平线共模(锰锌/镍锌磁芯)',
+        'product.p5.name': 'SQ1212卧式扁线共模',
+        'product.p5.desc': 'SQ扁平线共模(锰锌/镍锌磁芯)',
+        'product.p6.name': 'SQ1318立式扁线共模',
+        'product.p6.desc': 'SQ扁平线共模(锰锌/镍锌磁芯)',
+        'product.p7.name': 'SQ1322卧式扁线共模',
+        'product.p7.desc': 'SQ扁平线共模(锰锌/镍锌磁芯)',
+        'product.p8.name': 'SQ1824立式扁线共模',
+        'product.p8.desc': 'SQ扁平线共模(锰锌/镍锌磁芯)',
+        'footer.contact': '联系我们',
+        'footer.phone': '电话：13906687359 / 13957885837 / 13586569986',
+        'footer.email': 'zzujun@163.com / sales01@commonde.com',
+        'footer.address': '地址：浙江省宁波市鄞州区姜山镇联东U谷21号楼',
+        'footer.quickNav': '快速导航',
+        'footer.nav.home': '首页',
+        'footer.nav.about': '关于我们',
+        'footer.nav.product': '产品中心',
+        'footer.nav.equipment': '设备展示',
+        'footer.nav.contact': '联系我们',
+        'footer.products': '产品展示',
+        'footer.prod1': '共模电感',
+        'footer.prod2': '贴片电感',
+        'footer.prod3': '铁粉芯电感',
+        'footer.prod4': '环形电感',
+        'footer.prod5': '滤波电感/储能电感/PFC电感(合金磁粉芯)',
+        'footer.prod6': '电源变压器PFC电感/BUCK电感',
+        'footer.copyright': '版权所有 © 2026 宁波欧斯特电子有限公司 | 电话：13906687359 / 13957885837 / 13586569986 | 浙ICP备2026014142号-1'
+    },
+    en: {
+        'nav.home': 'Home',
+        'nav.about': 'About Us',
+        'nav.product': 'Products',
+        'nav.equipment': 'Equipment',
+        'nav.contact': 'Contact Us',
+        'about.title': 'OSTCORE',
+        'about.titleEn': 'Company Profile',
+        'about.subtitle': 'Professional Manufacturer of Soft Ferrite Cores and Components',
+        'about.desc1': 'OSTCORE specializes in the development and manufacturing of magnetic components for the electrical and electronics industry. Our components are widely used in consumer goods, automotive, telecommunications, office equipment, home appliances, industrial electronics, new energy electronics, and many other products.',
+        'about.desc2': 'With strong expertise in the production and development of magnetic components, OSTCORE stays close to customer needs and market applications, providing more competitive products and solutions.',
+        'about.btn': 'View Details',
+        'quick.about': 'Company Profile',
+        'quick.aboutEn': 'Company Profile',
+        'quick.product': 'Products',
+        'quick.productEn': 'Product Center',
+        'quick.equipment': 'Equipment',
+        'quick.equipmentEn': 'Plant Equipment',
+        'quick.contact': 'Contact Us',
+        'quick.contactEn': 'Contact Us',
+        'product.title': 'Latest Products',
+        'product.titleEn': 'Latest Products',
+        'product.p1.name': 'F8x10x3 Horizontal Common Mode',
+        'product.p1.desc': 'Square Common Mode (MnZn/NiZn Core)',
+        'product.p2.name': 'F8x10x5 Horizontal Common Mode',
+        'product.p2.desc': 'Square Common Mode (MnZn/NiZn Core)',
+        'product.p3.name': 'T9X5X4 Horizontal Common Mode',
+        'product.p3.desc': 'Toroidal Common Mode (MnZn/NiZn Core)',
+        'product.p4.name': 'SQ1619 Horizontal Flat Wire Common Mode',
+        'product.p4.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+        'product.p5.name': 'SQ1212 Horizontal Flat Wire Common Mode',
+        'product.p5.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+        'product.p6.name': 'SQ1318 Vertical Flat Wire Common Mode',
+        'product.p6.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+        'product.p7.name': 'SQ1322 Horizontal Flat Wire Common Mode',
+        'product.p7.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+        'product.p8.name': 'SQ1824 Vertical Flat Wire Common Mode',
+        'product.p8.desc': 'SQ Flat Wire Common Mode (MnZn/NiZn Core)',
+        'footer.contact': 'Contact Us',
+        'footer.phone': 'Tel: 13906687359 / 13957885837 / 13586569986',
+        'footer.email': 'zzujun@163.com / sales01@commonde.com',
+        'footer.address': 'Address: Building 21, Liandong U Valley, Jiangshan Town, Yinzhou District, Ningbo, Zhejiang, China',
+        'footer.quickNav': 'Quick Links',
+        'footer.nav.home': 'Home',
+        'footer.nav.about': 'About Us',
+        'footer.nav.product': 'Products',
+        'footer.nav.equipment': 'Equipment',
+        'footer.nav.contact': 'Contact Us',
+        'footer.products': 'Products',
+        'footer.prod1': 'Common Mode Inductors',
+        'footer.prod2': 'SMD Inductors',
+        'footer.prod3': 'Iron Powder Core Inductors',
+        'footer.prod4': 'Toroidal Inductors',
+        'footer.prod5': 'Filter Inductors / Energy Storage Inductors / PFC Inductors (Alloy Powder Core)',
+        'footer.prod6': 'Power Transformer PFC Inductors / BUCK Inductors',
+        'footer.copyright': 'Copyright © 2026 Ningbo OSTCORE Electronics Co., Ltd. | Tel: 13906687359 / 13957885837 / 13586569986 | Zhejiang ICP No. 2026014142-1'
+    }
+};
+
+// ===== 语言切换函数 =====
+function switchLanguage(lang) {
+    // 更新页面标题
+    document.title = lang === 'en' ? 'Ningbo OSTCORE Transformer & Inductor' : '宁波欧斯特变压器电感';
+    
+    // 更新所有带 data-i18n 属性的元素
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang] && i18n[lang][key]) {
+            // 如果是输入框，设置 placeholder
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = i18n[lang][key];
+            } else {
+                el.textContent = i18n[lang][key];
+            }
+        }
+    });
+
+    // 更新导航栏激活状态（根据当前页面）
+    const links = document.querySelectorAll('.nav-link');
+    const currentHref = window.location.href;
+    links.forEach(link => {
+        if (currentHref.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#') {
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        }
+    });
+
+    // 更新语言切换按钮样式
+    const langZh = document.getElementById('langZh');
+    const langEn = document.getElementById('langEn');
+    if (lang === 'zh') {
+        langZh.classList.add('active');
+        langZh.classList.remove('inactive');
+        langEn.classList.remove('active');
+        langEn.classList.add('inactive');
+        document.documentElement.lang = 'zh-CN';
+    } else {
+        langEn.classList.add('active');
+        langEn.classList.remove('inactive');
+        langZh.classList.remove('active');
+        langZh.classList.add('inactive');
+        document.documentElement.lang = 'en';
+    }
+
+    // 存储语言偏好
+    try {
+        localStorage.setItem('preferredLang', lang);
+    } catch(e) {}
+}
+
+// ===== 页面加载时初始化 =====
+document.addEventListener('DOMContentLoaded', function() {
+    // 读取语言偏好
+    let savedLang = 'zh';
+    try {
+        savedLang = localStorage.getItem('preferredLang') || 'zh';
+    } catch(e) {}
+    
+    // 如果保存的是英文，则切换
+    if (savedLang === 'en') {
+        switchLanguage('en');
+    } else {
+        switchLanguage('zh');
+    }
+
+    // 导航自动高亮（原有逻辑）
+    const links = document.querySelectorAll('.nav-link');
+    const currentHref = window.location.href;
+    links.forEach(link => {
+        if (currentHref.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#') {
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        }
+    });
+});
+</script>
+</body>
+</html>
